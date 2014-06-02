@@ -130,6 +130,20 @@ function ready(error, world, places) {
       return base
     })
     .text(function(d) { return d.properties.story })
+    .on('mouseover', function(d) {
+      var coordinates = d.geometry.coordinates
+      d3.transition()
+        .duration(1000)
+        .tween("rotate", function() {
+        var r = d3.interpolate(proj.rotate(), [-coordinates[0], -coordinates[1]]);
+        return function(t) {
+          proj.rotate(r(t));
+          sky.rotate(r(t))
+          svg.selectAll("path").attr("d", path);
+          refresh()
+        };
+      })
+    })
 
 
   // spawn links between cities as source/target coord pairs
