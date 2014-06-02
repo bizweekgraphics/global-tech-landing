@@ -24,6 +24,16 @@ svg {
     opacity: .5;
 }
 
+.city-texts {
+  font: 12px sans-serif;
+  opacity: 1;
+}
+
+.city-text:hover {
+  opacity: .5;
+  cursor: pointer;
+}
+
 .noclicks { pointer-events:none; }
 
 .point {  opacity:.6; }

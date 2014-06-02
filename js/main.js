@@ -114,10 +114,23 @@ function ready(error, world, places) {
       .attr("d", path);
 
   svg.append("g").attr("class","labels")
-      .selectAll("text").data(places.features)
+    .selectAll("text").data(places.features)
     .enter().append("text")
     .attr("class", "label")
     .text(function(d) { return d.properties.city })
+
+  var base = 30
+  svg.append('g').attr('class', 'city-texts')
+    .selectAll('text').data(places.features)
+    .enter().append('text')
+    .attr('class', 'city-text')
+    .attr('x', 50)
+    .attr('y', function(d) {
+      base += 30
+      return base
+    })
+    .text(function(d) { return d.properties.story })
+
 
   // spawn links between cities as source/target coord pairs
   places.features.forEach(function(a) {
