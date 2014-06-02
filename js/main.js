@@ -153,6 +153,20 @@ function ready(error, world, places) {
   refresh();
 }
 
+  d3.select('#test').on('click', function() {
+    d3.transition()
+      .duration(1000)
+      .tween("rotate", function() {
+      var r = d3.interpolate(proj.rotate(), [0, 0]);
+      return function(t) {
+        proj.rotate(r(t));
+        sky.rotate(r(t))
+        svg.selectAll("path").attr("d", path);
+        refresh()
+      };
+    })
+  })
+
 function positionLabels() {
   var centerPos = proj.invert([width/2,height/2]);
 
