@@ -133,7 +133,7 @@ function ready(error, world, places) {
     .on('mouseover', function(d) {
       var coordinates = d.geometry.coordinates
       d3.transition()
-        .duration(1000)
+        .duration(500)
         .tween("rotate", function() {
         var r = d3.interpolate(proj.rotate(), [-coordinates[0], -coordinates[1]]);
         return function(t) {
