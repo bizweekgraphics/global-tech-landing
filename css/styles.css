@@ -22,8 +22,6 @@ svg {
     font: 8px sans-serif;
     fill: black;
     opacity: .5;
-
-    display:none;
 }
 
 .noclicks { pointer-events:none; }

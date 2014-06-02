@@ -113,6 +113,12 @@ function ready(error, world, places) {
       .attr("class", "point")
       .attr("d", path);
 
+  svg.append("g").attr("class","labels")
+      .selectAll("text").data(places.features)
+    .enter().append("text")
+    .attr("class", "label")
+    .text(function(d) { return d.properties.city })
+
   // spawn links between cities as source/target coord pairs
   places.features.forEach(function(a) {
     places.features.forEach(function(b) {
@@ -143,7 +149,34 @@ function ready(error, world, places) {
     .attr("class","flyer")
     .attr("d", function(d) { return swoosh(flying_arc(d)) })
 
+  positionLabels()
   refresh();
+}
+
+function positionLabels() {
+  var centerPos = proj.invert([width/2,height/2]);
+
+  var arc = d3.geo.greatArc();
+
+  svg.selectAll(".label")
+    .attr("text-anchor",function(d) {
+      var x = proj(d.geometry.coordinates)[0];
+      return x < width/2-20 ? "end" :
+             x < width/2+20 ? "middle" :
+             "start"
+    })
+    .attr("transform", function(d) {
+      var loc = proj(d.geometry.coordinates),
+        x = loc[0],
+        y = loc[1];
+      var offset = x < width/2 ? -5 : 5;
+      return "translate(" + (x+offset) + "," + (y-2) + ")"
+    })
+    .style("display",function(d) {
+      var d = arc.distance({source: d.geometry.coordinates, target: centerPos});
+      return (d > 1.57) ? 'none' : 'inline';
+    })
+    
 }
 
 function flying_arc(pts) {
@@ -160,6 +193,7 @@ function flying_arc(pts) {
 
 
 function refresh() {
+  positionLabels()
   svg.selectAll(".land").attr("d", path);
   svg.selectAll(".point").attr("d", path);
   
