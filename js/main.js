@@ -32,8 +32,8 @@ var svg = d3.select("body").append("svg")
             .on("mousedown", mousedown);
 
 queue()
-    .defer(d3.json, "/js/world-110m.json")
-    .defer(d3.json, "/js/places.json")
+    .defer(d3.json, "js/world-110m.json")
+    .defer(d3.json, "js/places.json")
     .await(ready);
 
 function ready(error, world, places) {
