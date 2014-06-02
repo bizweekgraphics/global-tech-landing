@@ -184,10 +184,12 @@ function ready(error, world, places) {
         var targetObj = _.find(places.features, function(place) {
           return place.properties.story === seenArray[index + 1]
         })
-        links.push({
-          source: sourceObj.geometry.coordinates,  
-          target: targetObj.geometry.coordinates
-        })
+        if(sourceObj != targetObj){
+          links.push({
+            source: sourceObj.geometry.coordinates,  
+            target: targetObj.geometry.coordinates
+          })
+        }
       }
     })
   }
