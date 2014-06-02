@@ -26,7 +26,7 @@
 ,
 { "type": "Feature", "properties": {"city": "Parker, AZ", "story": "Wheelchair"}, "geometry": { "type": "Point", "coordinates": [-114.2897, 34.1447 ] } }
 ,
-{ "type": "Feature", "properties": {"city": "Vandenberg AFB", "story": "Xiaomi"}, "geometry": { "type": "Point", "coordinates": [ -120.5681, 34.7328 ] } }
+{ "type": "Feature", "properties": {"city": "Vandenberg AFB", "story": "Satellite"}, "geometry": { "type": "Point", "coordinates": [ -120.5681, 34.7328 ] } }
 ,
 { "type": "Feature", "properties": {"city": "DMZ", "story": "Balloons"}, "geometry": { "type": "Point", "coordinates": [ 128.6463, 37.9651 ] } }
 ]
