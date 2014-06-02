@@ -1,10 +1,12 @@
+
+
 d3.select(window)
     .on("mousemove", mousemove)
     .on("mouseup", mouseup);
 
 var margin = {top: 0, right: 0, bottom: 0, left: 0};
 
-var width = 960 - margin.left - margin.right,
+var width = 970 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
 
 var proj = d3.geo.orthographic()
@@ -146,6 +148,19 @@ function ready(error, world, places) {
         };
       })
     })
+    .on('click', function(d) {
+      addCookie(d.properties.story)
+      console.log(Cookies.get('seen'))
+    })
+
+  var addCookie = function(story) {
+    if(Cookies.get('seen')) {
+      var cookies = Cookies.get('seen')
+      Cookies.set('seen', cookies + ',' + story)  
+    } else {
+      Cookies.set('seen', story)
+    }
+  }
 
 
   // spawn links between cities as source/target coord pairs
