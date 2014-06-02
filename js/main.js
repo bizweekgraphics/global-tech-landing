@@ -164,16 +164,32 @@ function ready(error, world, places) {
 
 
   // spawn links between cities as source/target coord pairs
-  places.features.forEach(function(a) {
-    places.features.forEach(function(b) {
-      if (a !== b) {
-        links.push({
-          source: a.geometry.coordinates,
-          target: b.geometry.coordinates
-        });
-      }
-    });
-  });
+  // places.features.forEach(function(a) {
+  //   places.features.forEach(function(b) {
+  //     if (a !== b) {
+  //       links.push({
+  //         source: a.geometry.coordinates,
+  //         target: b.geometry.coordinates
+  //       });
+  //     }
+  //   });
+  // });
+
+  var seenArray = Cookies.get('seen').split(',')
+  seenArray.forEach(function(story, index) {
+    if(index < (seenArray.length - 1)){
+      var sourceObj =_.find(places.features, function(place) {
+        return place.properties.story === story
+      })
+      var targetObj = _.find(places.features, function(place) {
+        return place.properties.story === seenArray[index + 1]
+      })
+      links.push({
+        source: sourceObj.geometry.coordinates,  
+        target: targetObj.geometry.coordinates
+      })
+    }
+  })
 
   // build geoJSON features from links array
   links.forEach(function(e,i,a) {
