@@ -174,22 +174,23 @@ function ready(error, world, places) {
   //     }
   //   });
   // });
-
-  var seenArray = Cookies.get('seen').split(',')
-  seenArray.forEach(function(story, index) {
-    if(index < (seenArray.length - 1)){
-      var sourceObj =_.find(places.features, function(place) {
-        return place.properties.story === story
-      })
-      var targetObj = _.find(places.features, function(place) {
-        return place.properties.story === seenArray[index + 1]
-      })
-      links.push({
-        source: sourceObj.geometry.coordinates,  
-        target: targetObj.geometry.coordinates
-      })
-    }
-  })
+  if(Cookies.get('seen')) {
+    var seenArray = Cookies.get('seen').split(',')
+    seenArray.forEach(function(story, index) {
+      if(index < (seenArray.length - 1)){
+        var sourceObj =_.find(places.features, function(place) {
+          return place.properties.story === story
+        })
+        var targetObj = _.find(places.features, function(place) {
+          return place.properties.story === seenArray[index + 1]
+        })
+        links.push({
+          source: sourceObj.geometry.coordinates,  
+          target: targetObj.geometry.coordinates
+        })
+      }
+    })
+  }
 
   // build geoJSON features from links array
   links.forEach(function(e,i,a) {
