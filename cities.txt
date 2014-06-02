@@ -1,14 +1,14 @@
-Xiaomi - Beijing
-Hezbollah - Beirut
-Supercell - Helsinki
-Africa - Nairobi
-Tennis  - Lyon
-Worms - London
-Nerd Memorial - Reykjavik
-MLB/BAM - Rio de Janeiro
-Nuclear - Cambridge (mass)
-Quantified - Denver, Colorado
-Gadget - Parker, Colorado
-Wheelchair - Parker, Ariz
-Satellite - Vandenberg air force base, California
-Balloons - DMZ between north, south korea
+Xiaomi - Beijing  39.9139° N, 116.3917° E
+Hezbollah - Beirut 33.8869° N, 35.5131° E
+Supercell - Helsinki 60.1708° N, 24.9375° E
+Africa - Nairobi 1.2833° S, 36.8167° E
+Tennis  - Lyon 45.7600° N, 4.8400° E
+Worms - London 51.5072° N, 0.1275° W
+Nerd Memorial - Reykjavik 64.1333° N, 21.9333° W
+MLB/BAM - Rio de Janeiro 22.9083° S, 43.1964° W
+Nuclear - Cambridge (mass) 42.3736° N, 71.1106° W
+Quantified - Denver, Colorado 39.7392° N, 104.9847° W
+Gadget - Parker, Colorado 39.5194° N, 104.7658° W
+Wheelchair - Parker, Ariz 34.1447° N, 114.2897° W
+Satellite - Vandenberg air force base, California 34.7328° N, 120.5681° W
+Balloons - DMZ between north, south korea 37.9651° N, 126.6463° E
