@@ -2,6 +2,11 @@ body {
   margin-top: 3em;
 }
 
+#globe {
+  display: block;
+  text-align: center;
+}
+
 svg {
   border: 1px solid black;
 }

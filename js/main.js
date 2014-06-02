@@ -2,8 +2,10 @@ d3.select(window)
     .on("mousemove", mousemove)
     .on("mouseup", mouseup);
 
-var width = 960,
-    height = 500;
+var margin = {top: 0, right: 0, bottom: 0, left: 0};
+
+var width = 960 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
 
 var proj = d3.geo.orthographic()
     .translate([width / 2, height / 2])
@@ -26,7 +28,7 @@ var swoosh = d3.svg.line()
 var links = [],
     arcLines = [];
 
-var svg = d3.select("body").append("svg")
+var svg = d3.select("#globe").append("svg")
             .attr("width", width)
             .attr("height", height)
             .on("mousedown", mousedown);
