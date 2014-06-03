@@ -8,6 +8,11 @@ if("geolocation" in navigator) {
     latitude = position.coords.latitude
     longitude = position.coords.longitude
     var cookie = JSON.stringify({ "type": "Feature", "properties": {"city": "You", "story": "User Location"}, "geometry": { "type": "Point", "coordinates": [ longitude, latitude ] } })
+    
+    if(Cookies.get('seen')) {
+      var seen = Cookies.get('seen')
+      Cookies.set('seen', cookie + '|' + seen)
+    }
     Cookies.set('location', cookie)
     userGeo = true
     places.features.push(JSON.parse(cookie))
@@ -131,45 +136,28 @@ function ready(error, world, placesObj) {
         };
       })
     })
+    // .on('click', function(d) {
+    //   addCookie(d.properties.story)
+    //   console.log(Cookies.get('seen'))
+    // })
     .on('click', function(d) {
-      addCookie(d.properties.story)
+      d = JSON.stringify(d)
+      addCookie(d)
       console.log(Cookies.get('seen'))
     })
 
   var addCookie = function(story) {
     if(Cookies.get('seen')) {
       var cookies = Cookies.get('seen')
-      Cookies.set('seen', cookies + ',' + story)  
+      Cookies.set('seen', cookies + '|' + story)  
     } else {
       Cookies.set('seen', story)
     }
   }
 
   if(Cookies.get('seen')) {
-    var seenArray = Cookies.get('seen').split(',')
-    seenArray.forEach(function(story, index) {
-
-      if(index < (seenArray.length)){
-        if(index === 0 && Cookies.get('location')) {
-          var sourceObj = JSON.parse(Cookies.get('location'))
-        } else {
-          var sourceObj =_.find(places.features, function(place) {
-            return place.properties.story === seenArray[index - 1]
-          })
-        }
-        var targetObj = _.find(places.features, function(place) {
-          return place.properties.story === story
-        })
-        if(sourceObj != targetObj){
-          links.push({
-            source: sourceObj.geometry.coordinates,  
-            target: targetObj.geometry.coordinates
-          })
-        }
-      }
-    })
+    createLinks()
   }
-
 
 
   // build geoJSON features from links array
@@ -194,8 +182,34 @@ function ready(error, world, placesObj) {
   refresh();
 }
 
+var createLinks = function() {
+  var seenArray = Cookies.get('seen').split('|')
+  seenArray.forEach(function(feature, index) {
+    if(index < (seenArray.length - 1)){
+      var sourceObj = JSON.parse(feature)
+      var targetObj = JSON.parse(seenArray[index + 1])
+      if(sourceObj != targetObj){
+        links.push({
+          source: sourceObj.geometry.coordinates,  
+          target: targetObj.geometry.coordinates
+        })
+      }
+    }
+  })
+}
+
 var geoRefresh = function() {
-  d3.select('points')
+  links = []
+  arcLines = []
+  
+  createLinks()
+
+  links.forEach(function(e,i,a) {
+    var feature =   { "type": "Feature", "geometry": { "type": "LineString", "coordinates": [e.source,e.target] }}
+    arcLines.push(feature)
+  })
+
+  d3.select('.points')
   .selectAll(".point").data(places.features)
   .enter().append("path")
   .attr("class", "point")
@@ -207,6 +221,18 @@ var geoRefresh = function() {
     .enter().append("text")
     .attr("class", "label")
     .text(function(d) { return d.properties.city })
+
+  d3.select('.arcs')
+    .selectAll('.arc').data(arcLines)
+    .enter().append('path')
+    .attr('class', 'arc')
+    .attr('d', path)
+
+  d3.select('.flyers')
+    .selectAll('.flyer').data(links)
+    .enter().append('path')
+    .attr('class', 'flyer')
+    .attr('d', function(d) { return swoosh(flying_arc(d))})
 
   refresh()
 }
