@@ -1,4 +1,4 @@
-
+//modified from http://bl.ocks.org/dwtkns/4973620
 
 d3.select(window)
     .on("mousemove", mousemove)
@@ -21,6 +21,10 @@ var sky = d3.geo.orthographic()
 
 var path = d3.geo.path().projection(proj).pointRadius(2);
 
+var graticule = d3.geo.graticule()
+  .step([25, 25])
+
+
 var swoosh = d3.svg.line()
       .x(function(d) { return d[0] })
       .y(function(d) { return d[1] })
@@ -41,75 +45,14 @@ queue()
     .await(ready);
 
 function ready(error, world, places) {
-  var ocean_fill = svg.append("defs").append("radialGradient")
-        .attr("id", "ocean_fill")
-        .attr("cx", "75%")
-        .attr("cy", "25%");
-      ocean_fill.append("stop").attr("offset", "5%").attr("stop-color", "#fff");
-      ocean_fill.append("stop").attr("offset", "100%").attr("stop-color", "#ababab");
 
-  var globe_highlight = svg.append("defs").append("radialGradient")
-        .attr("id", "globe_highlight")
-        .attr("cx", "75%")
-        .attr("cy", "25%");
-      globe_highlight.append("stop")
-        .attr("offset", "5%").attr("stop-color", "#ffd")
-        .attr("stop-opacity","0.6");
-      globe_highlight.append("stop")
-        .attr("offset", "100%").attr("stop-color", "#ba9")
-        .attr("stop-opacity","0.2");
 
-  var globe_shading = svg.append("defs").append("radialGradient")
-        .attr("id", "globe_shading")
-        .attr("cx", "55%")
-        .attr("cy", "45%");
-      globe_shading.append("stop")
-        .attr("offset","30%").attr("stop-color", "#fff")
-        .attr("stop-opacity","0")
-      globe_shading.append("stop")
-        .attr("offset","100%").attr("stop-color", "#505962")
-        .attr("stop-opacity","0.3")
-
-  var drop_shadow = svg.append("defs").append("radialGradient")
-        .attr("id", "drop_shadow")
-        .attr("cx", "50%")
-        .attr("cy", "50%");
-      drop_shadow.append("stop")
-        .attr("offset","20%").attr("stop-color", "#000")
-        .attr("stop-opacity",".5")
-      drop_shadow.append("stop")
-        .attr("offset","100%").attr("stop-color", "#000")
-        .attr("stop-opacity","0")  
-
-  svg.append("ellipse")
-    .attr("cx", 440).attr("cy", 450)
-    .attr("rx", proj.scale()*.90)
-    .attr("ry", proj.scale()*.25)
-    .attr("class", "noclicks")
-    .style("fill", "url(#drop_shadow)");
-
-  svg.append("circle")
-    .attr("cx", width / 2).attr("cy", height / 2)
-    .attr("r", proj.scale())
-    .attr("class", "noclicks")
-    .style("fill", "url(#ocean_fill)");
-  
-  svg.append("path")
-    .datum(topojson.object(world, world.objects.land))
-    .attr("class", "land noclicks")
-    .attr("d", path);
-
-  svg.append("circle")
-    .attr("cx", width / 2).attr("cy", height / 2)
-    .attr("r", proj.scale())
-    .attr("class","noclicks")
-    .style("fill", "url(#globe_highlight)");
-
-  svg.append("circle")
-    .attr("cx", width / 2).attr("cy", height / 2)
-    .attr("r", proj.scale())
-    .attr("class","noclicks")
-    .style("fill", "url(#globe_shading)");
+  svg.append('path')
+    .datum(topojson.object(world, world.objects.countries))
+    .attr('class', 'countries noclicks')
+    .attr('d', path)
+    .style('stroke', 'black')
+    .style('fill', 'white')
 
   svg.append("g").attr("class","points")
       .selectAll("text").data(places.features)
@@ -122,6 +65,11 @@ function ready(error, world, places) {
     .enter().append("text")
     .attr("class", "label")
     .text(function(d) { return d.properties.city })
+
+  svg.append("path")
+      .datum(graticule)
+      .attr("class", "graticule noclicks")
+      .attr("d", path);
 
   var base = 30
   svg.append('g').attr('class', 'city-texts')
@@ -162,18 +110,6 @@ function ready(error, world, places) {
     }
   }
 
-
-  // spawn links between cities as source/target coord pairs
-  // places.features.forEach(function(a) {
-  //   places.features.forEach(function(b) {
-  //     if (a !== b) {
-  //       links.push({
-  //         source: a.geometry.coordinates,
-  //         target: b.geometry.coordinates
-  //       });
-  //     }
-  //   });
-  // });
   if(Cookies.get('seen')) {
     var seenArray = Cookies.get('seen').split(',')
     seenArray.forEach(function(story, index) {
@@ -273,6 +209,7 @@ function refresh() {
   positionLabels()
   svg.selectAll(".land").attr("d", path);
   svg.selectAll(".point").attr("d", path);
+ svg.selectAll(".graticule").attr("d", path);
   
   svg.selectAll(".arc").attr("d", path)
     .attr("opacity", function(d) {
