@@ -274,33 +274,3 @@ function mouseup() {
 }
 
 
-
-    // .on('mouseover', function(d) {
-    //   var coordinates = d.geometry.coordinates
-    //   d3.transition()
-    //     .duration(750)
-    //     .tween("rotate", function() {
-    //     var r = d3.interpolate(proj.rotate(), [-coordinates[0], -coordinates[1]]);
-    //     return function(t) {
-    //       proj.rotate(r(t));
-    //       sky.rotate(r(t))
-    //       svg.selectAll("path").attr("d", path);
-    //       refresh()
-    //     };
-    //   })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
