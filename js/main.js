@@ -12,11 +12,13 @@ var width = 970 - margin.left - margin.right,
 var proj = d3.geo.orthographic()
     .translate([width / 2, height / 2])
     .clipAngle(90)
+    .rotate([104.9847, -39.7392, 0])
     .scale(220);
 
 var sky = d3.geo.orthographic()
     .translate([width / 2, height / 2])
     .clipAngle(90)
+    .rotate([104.9847, -39.7392, 0])
     .scale(300);
 
 var path = d3.geo.path().projection(proj).pointRadius(2);
@@ -177,7 +179,11 @@ function positionLabels() {
         x = loc[0],
         y = loc[1];
       var offset = x < width/2 ? -5 : 5;
-      return "translate(" + (x+offset) + "," + (y-2) + ")"
+      if(d.properties.city === "Parker, CO" || d.properties.city === "Parker, AZ") {
+        return "translate(" + (x+offset) + "," + (y+5) + ")"
+      } else {
+        return "translate(" + (x+offset) + "," + (y-2) + ")"
+      }
     })
     .style("display",function(d) {
       var d = arc.distance({source: d.geometry.coordinates, target: centerPos});
