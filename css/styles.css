@@ -16,6 +16,12 @@ svg {
   stroke-opacity: 1;
 }
 
+.sphere {
+  stroke: black;
+  stroke-width: .5;
+  fill: none;
+}
+
 .graticule {
   fill: none;
   stroke: black;
@@ -42,6 +48,7 @@ svg {
 .noclicks { pointer-events:none; }
 
 .point {  opacity:.6; }
+
 
 .arcs {
   opacity:.1;

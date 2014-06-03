@@ -22,7 +22,7 @@ var sky = d3.geo.orthographic()
 var path = d3.geo.path().projection(proj).pointRadius(2);
 
 var graticule = d3.geo.graticule()
-  .step([25, 25])
+  .step([36, 25])
 
 
 var swoosh = d3.svg.line()
@@ -46,6 +46,11 @@ queue()
 
 function ready(error, world, places) {
 
+  svg.append("path")
+    .datum(graticule)
+    .attr("class", "graticule noclicks")
+    .attr("d", path);
+
 
   svg.append('path')
     .datum(topojson.object(world, world.objects.countries))
@@ -67,8 +72,8 @@ function ready(error, world, places) {
     .text(function(d) { return d.properties.city })
 
   svg.append("path")
-      .datum(graticule)
-      .attr("class", "graticule noclicks")
+      .datum({type: "Sphere"})
+      .attr("class", "sphere")
       .attr("d", path);
 
   var base = 30
@@ -130,6 +135,8 @@ function ready(error, world, places) {
     })
   }
 
+
+
   // build geoJSON features from links array
   links.forEach(function(e,i,a) {
     var feature =   { "type": "Feature", "geometry": { "type": "LineString", "coordinates": [e.source,e.target] }}
@@ -152,19 +159,6 @@ function ready(error, world, places) {
   refresh();
 }
 
-  d3.select('#test').on('click', function() {
-    d3.transition()
-      .duration(1000)
-      .tween("rotate", function() {
-      var r = d3.interpolate(proj.rotate(), [0, 0]);
-      return function(t) {
-        proj.rotate(r(t));
-        sky.rotate(r(t))
-        svg.selectAll("path").attr("d", path);
-        refresh()
-      };
-    })
-  })
 
 function positionLabels() {
   var centerPos = proj.invert([width/2,height/2]);
@@ -206,10 +200,10 @@ function flying_arc(pts) {
 
 
 function refresh() {
+ svg.selectAll(".graticule").attr("d", path);
   positionLabels()
   svg.selectAll(".land").attr("d", path);
   svg.selectAll(".point").attr("d", path);
- svg.selectAll(".graticule").attr("d", path);
   
   svg.selectAll(".arc").attr("d", path)
     .attr("opacity", function(d) {
