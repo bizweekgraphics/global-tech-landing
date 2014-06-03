@@ -1,12 +1,26 @@
+var places;
+var userGeo = false  
+
+if("geolocation" in navigator) {
+  navigator.geolocation.getCurrentPosition(success, error)
+
+  function success(position) {
+    latitude = position.coords.latitude
+    longitude = position.coords.longitude
+    var cookie = JSON.stringify({ "type": "Feature", "properties": {"city": "You", "story": "User Location"}, "geometry": { "type": "Point", "coordinates": [ longitude, latitude ] } })
+    Cookies.set('location', cookie)
+    userGeo = true
+    places.features.push(JSON.parse(cookie))
+    geoRefresh()
+  }
+
+  function error() {
+    console.log('geolocation error')
+  }
+}
+
+
 //modified from http://bl.ocks.org/dwtkns/4973620
-navigator.geolocation.getCurrentPosition(function(position) {
-  latitude = position.coords.latitude
-  longitude = position.coords.longitude
-  var cookie = JSON.stringify({ "type": "Feature", "properties": {"city": "You", "story": "User Location"}, "geometry": { "type": "Point", "coordinates": [ longitude, latitude ] } })
-  Cookies.set('location', cookie)
-})
-
-
 d3.select(window)
     .on("mousemove", mousemove)
     .on("mouseup", mouseup);
@@ -53,9 +67,12 @@ queue()
     .defer(d3.json, "js/places.json")
     .await(ready);
 
-function ready(error, world, places) {
-  places.features.push(JSON.parse(Cookies.get('location')))
+function ready(error, world, placesObj) {
+  places = placesObj
 
+  if(userGeo){
+    places.features.push(JSON.parse(Cookies.get('location')))
+  }
 
   svg.append("path")
     .datum(graticule)
@@ -131,6 +148,7 @@ function ready(error, world, places) {
   if(Cookies.get('seen')) {
     var seenArray = Cookies.get('seen').split(',')
     seenArray.forEach(function(story, index) {
+
       if(index < (seenArray.length)){
         if(index === 0 && Cookies.get('location')) {
           var sourceObj = JSON.parse(Cookies.get('location'))
@@ -174,6 +192,23 @@ function ready(error, world, places) {
 
   positionLabels()
   refresh();
+}
+
+var geoRefresh = function() {
+  d3.select('points')
+  .selectAll(".point").data(places.features)
+  .enter().append("path")
+  .attr("class", "point")
+  .attr("d", path);
+
+  d3.select('.labels')
+    .selectAll('.label')
+    .data(places.features)
+    .enter().append("text")
+    .attr("class", "label")
+    .text(function(d) { return d.properties.city })
+
+  refresh()
 }
 
 
@@ -293,5 +328,6 @@ function mouseup() {
     m0 = null;
   }
 }
+
 
 
