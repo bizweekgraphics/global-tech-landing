@@ -1,4 +1,11 @@
 //modified from http://bl.ocks.org/dwtkns/4973620
+navigator.geolocation.getCurrentPosition(function(position) {
+  latitude = position.coords.latitude
+  longitude = position.coords.longitude
+  var cookie = JSON.stringify({ "type": "Feature", "properties": {"city": "You", "story": "User Location"}, "geometry": { "type": "Point", "coordinates": [ longitude, latitude ] } })
+  Cookies.set('location', cookie)
+})
+
 
 d3.select(window)
     .on("mousemove", mousemove)
@@ -47,6 +54,8 @@ queue()
     .await(ready);
 
 function ready(error, world, places) {
+  places.features.push(JSON.parse(Cookies.get('location')))
+
 
   svg.append("path")
     .datum(graticule)
@@ -66,6 +75,8 @@ function ready(error, world, places) {
     .enter().append("path")
       .attr("class", "point")
       .attr("d", path);
+
+
 
   svg.append("g").attr("class","labels")
     .selectAll("text").data(places.features)
@@ -120,12 +131,16 @@ function ready(error, world, places) {
   if(Cookies.get('seen')) {
     var seenArray = Cookies.get('seen').split(',')
     seenArray.forEach(function(story, index) {
-      if(index < (seenArray.length - 1)){
-        var sourceObj =_.find(places.features, function(place) {
-          return place.properties.story === story
-        })
+      if(index < (seenArray.length)){
+        if(index === 0 && Cookies.get('location')) {
+          var sourceObj = JSON.parse(Cookies.get('location'))
+        } else {
+          var sourceObj =_.find(places.features, function(place) {
+            return place.properties.story === seenArray[index - 1]
+          })
+        }
         var targetObj = _.find(places.features, function(place) {
-          return place.properties.story === seenArray[index + 1]
+          return place.properties.story === story
         })
         if(sourceObj != targetObj){
           links.push({
