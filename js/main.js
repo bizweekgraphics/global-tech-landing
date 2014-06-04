@@ -129,6 +129,8 @@ function ready(error, world, placesObj) {
     .attr('y', 223)
     .attr('x', 260)
 
+
+  var over = false
   var base = 490
   svg.append('g').attr('class', 'city-texts')
     .selectAll('.city-text').data(places.features)
@@ -158,10 +160,13 @@ function ready(error, world, placesObj) {
       }
     })
     .on('mouseover', function(d) {
+      over = true
       var coordinates = d.geometry.coordinates
       d3.transition()
         .each('end', function() {
-          $('.city-arrow').show()
+          if(over === true) {
+            $('.city-arrow').show()
+          }
         })
         .duration(750)
         .tween("rotate", function() {
@@ -175,6 +180,7 @@ function ready(error, world, placesObj) {
       })
     })
     .on('mouseout', function() {
+      over = false
       $('.city-arrow').hide()
     })
     .on('click', function(d) {
