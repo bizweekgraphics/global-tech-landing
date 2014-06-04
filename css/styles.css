@@ -49,6 +49,10 @@ svg {
 
 .point {  opacity:.6; }
 
+#you {
+  fill: red;
+}
+
 
 .arcs {
   opacity:.1;

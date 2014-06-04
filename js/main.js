@@ -9,10 +9,6 @@ if("geolocation" in navigator) {
     longitude = position.coords.longitude
     var cookie = JSON.stringify({ "type": "Feature", "properties": {"city": "You", "story": "User Location"}, "geometry": { "type": "Point", "coordinates": [ longitude, latitude ] } })
     
-    if(Cookies.get('seen')) {
-      var seen = Cookies.get('seen')
-      Cookies.set('seen', cookie + '|' + seen)
-    }
     Cookies.set('location', cookie)
     userGeo = true
     places.features.push(JSON.parse(cookie))
@@ -183,9 +179,13 @@ function ready(error, world, placesObj) {
 }
 
 var createLinks = function() {
-  var seenArray = Cookies.get('seen').split('|')
+  if(Cookies.get('location')) {
+    var seenArray = (Cookies.get('location') + '|' + Cookies.get('seen')).split('|')
+  } else {
+    var seenArray = Cookies.get('seen').split('|')
+  }
   seenArray.forEach(function(feature, index) {
-    if(index < (seenArray.length - 1)){
+    if(index < (seenArray.length - 1) && Cookies.get('seen')){
       var sourceObj = JSON.parse(feature)
       var targetObj = JSON.parse(seenArray[index + 1])
       if(sourceObj != targetObj){
@@ -213,7 +213,12 @@ var geoRefresh = function() {
   .selectAll(".point").data(places.features)
   .enter().append("path")
   .attr("class", "point")
-  .attr("d", path);
+  .attr("d", path)
+  .attr('id', function(d) {
+    if(d.properties.city === "You") {
+      return "you"
+    }
+  })
 
   d3.select('.labels')
     .selectAll('.label')
