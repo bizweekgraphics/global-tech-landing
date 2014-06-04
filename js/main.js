@@ -171,6 +171,7 @@ function ready(error, world, placesObj) {
       }
     })
     .on('mouseover', function(d) {
+      $(this).css('opacity', .5)
       over = true
       var coordinates = d.geometry.coordinates
       d3.transition()
@@ -193,6 +194,7 @@ function ready(error, world, placesObj) {
       })
     })
     .on('mouseout', function() {
+      $(this).css('opacity', 1)
       over = false
       $('.city-arrow').hide()
     })

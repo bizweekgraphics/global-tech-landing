@@ -83,9 +83,7 @@
   -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(SizingMethod='auto expand', M11=0.7071067811865476, M12=-0.7071067811865475, M21=0.7071067811865475, M22=0.7071067811865476)"; 
 }
 
-.city-text:hover {
-  /*color: black;*/
-  opacity: .5;
+.city-text:hover{
   cursor: pointer;
 }
 
