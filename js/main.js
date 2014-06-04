@@ -132,9 +132,10 @@ function ready(error, world, placesObj) {
 
   var over = false
   var base = 490
+
   svg.append('g').attr('class', 'city-texts')
     .selectAll('.city-text').data(places.features)
-    .enter().append('text')
+    .enter().append('foreignObject')
     .attr('class', 'city-text')
     .attr('x', function(d) {
       var idx = places.features.indexOf(d)
@@ -154,6 +155,9 @@ function ready(error, world, placesObj) {
       base += 30
       return base
     })
+    .attr('width', 200)
+    .attr('height', 50)
+    .append('xhtml:p')
     .text(function(d) { 
       if(d.properties.story != "User Location"){
         return d.properties.story 
@@ -406,6 +410,5 @@ function mouseup() {
     m0 = null;
   }
 }
-
 
 

@@ -20,7 +20,7 @@
 ,
 { "type": "Feature", "properties": {"city": "Cambridge, MA", "story": "Nuclear"}, "geometry": { "type": "Point", "coordinates": [ -71.1106, 42.3736 ] } }
 ,
-{ "type": "Feature", "properties": {"city": "Miami Beach, FL", "story": "Miami Beach Story"}, "geometry": { "type": "Point", "coordinates": [ -80.1341, 25.8130 ] } }
+{ "type": "Feature", "properties": {"city": "Miami Beach, FL", "story": "Miami Beach Story TEST TEST TEST TEST TEST"}, "geometry": { "type": "Point", "coordinates": [ -80.1341, 25.8130 ] } }
 ,
 { "type": "Feature", "properties": {"city": "Denver, CO", "story": "Quantified"}, "geometry": { "type": "Point", "coordinates": [ -104.9847, 39.7392] } }
 ,
