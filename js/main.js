@@ -114,7 +114,7 @@ function ready(error, world, placesObj) {
   svg.append('text')
     .text('TABLE OF CONTENTS')
     .attr('id', 'table-contents-text')
-    .attr('y', 475)
+    .attr('y', 480)
 
   svg.append('rect')
     .attr('width', 630)
@@ -126,8 +126,21 @@ function ready(error, world, placesObj) {
     .selectAll('.city-text').data(places.features)
     .enter().append('text')
     .attr('class', 'city-text')
-    .attr('x', 50)
+    .attr('x', function(d) {
+      var idx = places.features.indexOf(d)
+      if(idx < 5) {
+        return 0 
+      } else if(idx >= 5 && idx < 9) {
+        return 220
+      } else {
+        return 440        
+      }
+    })
     .attr('y', function(d) {
+      var idx = places.features.indexOf(d)
+      if(idx === 5 || idx === 9) {
+        base = 490
+      }
       base += 30
       return base
     })
@@ -202,7 +215,7 @@ var createLinks = function() {
     if(index < (seenArray.length - 1) && Cookies.get('seen')){
       var sourceObj = JSON.parse(feature)
       var targetObj = JSON.parse(seenArray[index + 1])
-      if(sourceObj != targetObj){
+      if(JSON.stringify(sourceObj) != JSON.stringify(targetObj)){
         links.push({
           source: sourceObj.geometry.coordinates,  
           target: targetObj.geometry.coordinates
