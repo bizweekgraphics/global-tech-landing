@@ -1,4 +1,13 @@
-var places;
+var thisUrl = document.referrer
+
+var setCookie = function() {
+  var thisStory = _.find(places.features, function(feature) {
+    return feature.properties.url === thisUrl
+  })
+  var cookie = JSON.stringify(thisStory)
+  addCookie(cookie)
+} 
+
 
 if("geolocation" in navigator) {
   navigator.geolocation.getCurrentPosition(success, error)
@@ -128,7 +137,7 @@ function ready(error, world, placesObj) {
   svg.append('foreignObject')
     .attr('height', 30)
     .attr('width', 300)
-    .attr('x', 10)
+    .attr('x', 15)
     .attr('y', 220)
     .append('xhtml:p')
     .attr('id', 'global-tech')

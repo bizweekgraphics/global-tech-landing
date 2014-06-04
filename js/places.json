@@ -2,34 +2,34 @@
 "type": "FeatureCollection",
                                                                                 
 "features": [
-{ "type": "Feature", "properties": {"city": "Beijing", "story": "Xiaomi"}, "geometry": { "type": "Point", "coordinates": [ 116.3917, 39.9139 ] } }
+{ "type": "Feature", "properties": {"city": "Beijing", "story": "Xiaomi", "img":"beijing.png"}, "geometry": { "type": "Point", "coordinates": [ 116.3917, 39.9139 ] } }
 ,
-{ "type": "Feature", "properties": {"city": "Beirut", "story": "Hezbollah"}, "geometry": { "type": "Point", "coordinates": [ 35.5131, 33.8869 ] } }
+{ "type": "Feature", "properties": {"city": "Beirut", "story": "Hezbollah", "img":"beirut.png"}, "geometry": { "type": "Point", "coordinates": [ 35.5131, 33.8869 ] } }
 ,
-{ "type": "Feature", "properties": {"city": "Helsinki", "story": "Supercell"}, "geometry": { "type": "Point", "coordinates": [ 24.9375, 60.1708 ] } }
+{ "type": "Feature", "properties": {"city": "Helsinki", "story": "Supercell", "img":"helsinki.png"}, "geometry": { "type": "Point", "coordinates": [ 24.9375, 60.1708 ] } }
 ,
-{ "type": "Feature", "properties": {"city": "Nairobi", "story": "Africa"}, "geometry": { "type": "Point", "coordinates": [ 36.8167, -1.2833 ] } }
+{ "type": "Feature", "properties": {"city": "Nairobi", "story": "Africa", "img":"nairobi.png"}, "geometry": { "type": "Point", "coordinates": [ 36.8167, -1.2833 ] } }
 ,
-{ "type": "Feature", "properties": {"city": "Lyon", "story": "Tennis"}, "geometry": { "type": "Point", "coordinates": [ 4.8400, 45.7600 ] } }
+{ "type": "Feature", "properties": {"city": "Lyon", "story": "Tennis", "img":"lyon.png"}, "geometry": { "type": "Point", "coordinates": [ 4.8400, 45.7600 ] } }
 ,
-{ "type": "Feature", "properties": {"city": "London", "story": "Worms"}, "geometry": { "type": "Point", "coordinates": [ -0.1275, 51.5072 ] } }
+{ "type": "Feature", "properties": {"city": "London", "story": "Worms", "img":"london.png"}, "geometry": { "type": "Point", "coordinates": [ -0.1275, 51.5072 ] } }
 ,
-{ "type": "Feature", "properties": {"city": "Reykjavik", "story": "Nerd Memorial"}, "geometry": { "type": "Point", "coordinates": [ -21.9333, 64.1333 ] } }
+{ "type": "Feature", "properties": {"city": "Reykjavik", "story": "Nerd Memorial", "img":"reykjavik.png"}, "geometry": { "type": "Point", "coordinates": [ -21.9333, 64.1333 ] } }
 ,
-{ "type": "Feature", "properties": {"city": "Rio de Janeiro", "story": "MLB/BAM"}, "geometry": { "type": "Point", "coordinates": [ -43.1964, -22.9083] } }
+{ "type": "Feature", "properties": {"city": "Rio de Janeiro", "story": "MLB/BAM", "img":"rio.png"}, "geometry": { "type": "Point", "coordinates": [ -43.1964, -22.9083] } }
 ,
-{ "type": "Feature", "properties": {"city": "Cambridge, MA", "story": "Nuclear"}, "geometry": { "type": "Point", "coordinates": [ -71.1106, 42.3736 ] } }
+{ "type": "Feature", "properties": {"city": "Cambridge, MA", "story": "Nuclear", "img":"cambridge.png"}, "geometry": { "type": "Point", "coordinates": [ -71.1106, 42.3736 ] } }
 ,
-{ "type": "Feature", "properties": {"city": "Miami Beach, FL", "story": "Miami Beach Story TEST TEST TEST TEST TEST"}, "geometry": { "type": "Point", "coordinates": [ -80.1341, 25.8130 ] } }
+{ "type": "Feature", "properties": {"city": "Miami Beach, FL", "story": "Miami Beach Story TEST TEST TEST TEST TEST", "img":"miami.png"}, "geometry": { "type": "Point", "coordinates": [ -80.1341, 25.8130 ] } }
 ,
-{ "type": "Feature", "properties": {"city": "Denver, CO", "story": "Quantified"}, "geometry": { "type": "Point", "coordinates": [ -104.9847, 39.7392] } }
+{ "type": "Feature", "properties": {"city": "Denver, CO", "story": "Quantified", "img":"denver.png"}, "geometry": { "type": "Point", "coordinates": [ -104.9847, 39.7392] } }
 ,
-{ "type": "Feature", "properties": {"city": "Black Rock City, NV", "story": "Black Rock City Story"}, "geometry": { "type": "Point", "coordinates": [ -119.260333, 40.753842 ] } }
+{ "type": "Feature", "properties": {"city": "Black Rock City, NV", "story": "Black Rock City Story", "img":"blackrock.png"}, "geometry": { "type": "Point", "coordinates": [ -119.260333, 40.753842 ] } }
 ,
-{ "type": "Feature", "properties": {"city": "Phoenix, AZ", "story": "Wheelchair"}, "geometry": { "type": "Point", "coordinates": [-112.0667, 33.4500 ] } }
+{ "type": "Feature", "properties": {"city": "Phoenix, AZ", "story": "Wheelchair", "img":"phoenix.png"}, "geometry": { "type": "Point", "coordinates": [-112.0667, 33.4500 ] } }
 ,
-{ "type": "Feature", "properties": {"city": "Vandenberg AFB", "story": "Satellite"}, "geometry": { "type": "Point", "coordinates": [ -120.5681, 34.7328 ] } }
+{ "type": "Feature", "properties": {"city": "Vandenberg AFB", "story": "Satellite", "img":"afb.png"}, "geometry": { "type": "Point", "coordinates": [ -120.5681, 34.7328 ] } }
 ,
-{ "type": "Feature", "properties": {"city": "DMZ", "story": "Balloons"}, "geometry": { "type": "Point", "coordinates": [ 128.6463, 37.9651 ] } }
+{ "type": "Feature", "properties": {"city": "DMZ", "story": "Balloons", "img":"dmz.png"}, "geometry": { "type": "Point", "coordinates": [ 128.6463, 37.9651 ] } }
 ]
 }

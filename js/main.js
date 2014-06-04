@@ -46,7 +46,6 @@ var path = d3.geo.path().projection(proj).pointRadius(2);
 var graticule = d3.geo.graticule()
   .step([36, 25])
 
-
 var swoosh = d3.svg.line()
       .x(function(d) { return d[0] })
       .y(function(d) { return d[1] })
@@ -121,13 +120,14 @@ function ready(error, world, placesObj) {
     .attr('height', 10)
     .attr('y', 490)
 
-  svg.append('rect')
-    .attr('display', 'none')
+  svg.append('foreignObject')
+    .data(places.features)
     .attr('class', 'city-arrow')
-    .attr('width', 50)
-    .attr('height', 10)
-    .attr('y', 223)
-    .attr('x', 260)
+    .attr('width', 125)
+    .attr('height', 100)
+    .attr('y', 205)
+    .attr('x', 185)
+    .append('xhtml:img')
 
 
   var over = false
@@ -172,6 +172,8 @@ function ready(error, world, placesObj) {
       d3.transition()
         .each('end', function() {
           if(over === true) {
+            $('.city-arrow img').attr('src', 'img/' + d.properties.img)
+            setImgY(d)
             $('.city-arrow').show()
           }
         })
@@ -195,6 +197,62 @@ function ready(error, world, placesObj) {
       addCookie(d)
       console.log(Cookies.get('seen'))
     })
+
+  var setImgY = function(d) {
+    var city = d.properties.city
+    var y;
+    switch(city) {
+      case "Beijing":
+        y = 188
+        break;
+      case "Beirut":
+        y = 188
+        break;
+      case "Helsinki":
+        y = 193
+        break;
+      case "Nairobi":
+        y = 191
+        break;
+      case "Lyon":
+        y = 178
+        break;
+      case "London":
+        y = 190
+        break;
+      case "Reykjavik":
+        y = 196
+        break;
+      case "Rio de Janeiro":
+        y = 205
+        break;
+      case "Cambridge, MA":
+        y = 207
+        break;
+      case "Miami Beach, FL":
+        y = 200
+        break;
+      case "Denver, CO":
+        y = 189;
+        break;
+      case "Black Rock City, NV":
+        y = 208;
+        break;
+      case "Phoenix, AZ":
+        y = 191;
+        break;
+      case "Vandenberg AFB":
+        y = 207
+        break;
+      case "DMZ":
+        y = 207
+        break;
+      default: 
+        y = 255
+        break;
+    }
+    $('.city-arrow').attr('y', y)
+  }
 
 
   var addCookie = function(story) {
