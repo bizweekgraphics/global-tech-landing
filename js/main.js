@@ -121,6 +121,14 @@ function ready(error, world, placesObj) {
     .attr('height', 10)
     .attr('y', 490)
 
+  svg.append('rect')
+    .attr('display', 'none')
+    .attr('class', 'city-arrow')
+    .attr('width', 50)
+    .attr('height', 10)
+    .attr('y', 223)
+    .attr('x', 260)
+
   var base = 490
   svg.append('g').attr('class', 'city-texts')
     .selectAll('.city-text').data(places.features)
@@ -148,6 +156,9 @@ function ready(error, world, placesObj) {
     .on('mouseover', function(d) {
       var coordinates = d.geometry.coordinates
       d3.transition()
+        .each('end', function() {
+          $('.city-arrow').show()
+        })
         .duration(750)
         .tween("rotate", function() {
         var r = d3.interpolate(proj.rotate(), [-coordinates[0], -coordinates[1]]);
@@ -159,10 +170,9 @@ function ready(error, world, placesObj) {
         };
       })
     })
-    // .on('click', function(d) {
-    //   addCookie(d.properties.story)
-    //   console.log(Cookies.get('seen'))
-    // })
+    .on('mouseout', function() {
+      $('.city-arrow').hide()
+    })
     .on('click', function(d) {
       d = JSON.stringify(d)
       addCookie(d)
