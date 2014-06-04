@@ -27,7 +27,7 @@ d3.select(window)
 var margin = {top: 0, right: 0, bottom: 0, left: 0};
 
 var width = 630 - margin.left - margin.right,
-    height = 800 - margin.top - margin.bottom;
+    height = 900 - margin.top - margin.bottom;
 
 var proj = d3.geo.orthographic()
     .translate([width / 2, height / 3.5])
@@ -131,16 +131,16 @@ function ready(error, world, placesObj) {
 
 
   var over = false
-  var base = 490
+  var base = 460
 
   svg.append('g').attr('class', 'city-texts')
     .selectAll('.city-text').data(places.features)
     .enter().append('foreignObject')
     .attr('x', function(d) {
       var idx = places.features.indexOf(d)
-      if(idx < 5) {
+      if(idx < 6) {
         return 0 
-      } else if(idx >= 5 && idx < 9) {
+      } else if(idx >= 6 && idx < 11) {
         return 220
       } else {
         return 440        
@@ -148,17 +148,21 @@ function ready(error, world, placesObj) {
     })
     .attr('y', function(d) {
       var idx = places.features.indexOf(d)
-      if(idx === 5 || idx === 9) {
-        base = 490
+      if(idx === 6 || idx === 11) {
+        base = 460
       }
       if(idx > 0 && places.features[idx-1].properties.story.length > 21) {
-        base += 18
+        var multiplier = places.features[idx-1].properties.story.length / 21
+        if(idx != 6 && idx !=11) {
+          var add = 7 * multiplier
+          base += add      
+        }
       }
-      base += 30
+      base += 60
       return base
     })
     .attr('width', 200)
-    .attr('height', 50)
+    .attr('height', 100)
     .append('xhtml:p')
     .attr('class', 'city-text')
     .text(function(d) { 
@@ -203,54 +207,58 @@ function ready(error, world, placesObj) {
     var y;
     switch(city) {
       case "Beijing":
-        y = 188
+        y = 217
         break;
       case "Beirut":
-        y = 188
+        y = 217
         break;
       case "Helsinki":
-        y = 193
+        y = 222
         break;
       case "Nairobi":
-        y = 191
+        y = 220
         break;
       case "Lyon":
-        y = 178
+        y = 207
         break;
       case "London":
-        y = 190
+        y = 219
         break;
       case "Reykjavik":
-        y = 196
+        y = 225
         break;
       case "Rio de Janeiro":
-        y = 205
+        y = 234
         break;
       case "Cambridge, MA":
-        y = 207
+        y = 236
         break;
       case "Miami Beach, FL":
-        y = 200
+        y = 229
         break;
       case "Denver, CO":
-        y = 189;
+        y = 218;
         break;
       case "Black Rock City, NV":
-        y = 208;
+        y = 237;
         break;
       case "Phoenix, AZ":
-        y = 191;
+        y = 220;
         break;
       case "Vandenberg AFB":
-        y = 207
+        y = 236
         break;
       case "DMZ":
-        y = 207
+        y = 236
+        break;
+      case "Silicon Valley":
+        y = 233
         break;
       default: 
         y = 255
         break;
     }
+    console.log(y)
     $('.city-arrow').attr('y', y)
   }
 

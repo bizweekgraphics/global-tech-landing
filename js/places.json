@@ -2,34 +2,35 @@
 "type": "FeatureCollection",
                                                                                 
 "features": [
-{ "type": "Feature", "properties": {"city": "Beijing", "story": "Xiaomi", "img":"beijing.png"}, "geometry": { "type": "Point", "coordinates": [ 116.3917, 39.9139 ] } }
+{ "type": "Feature", "properties": {"city": "Beijing", "story": "Xiaomi's Phones Have Conquered China. Now It's Aiming for the Rest of the World", "img":"beijing.png"}, "geometry": { "type": "Point", "coordinates": [ 116.3917, 39.9139 ] } }
 ,
-{ "type": "Feature", "properties": {"city": "Beirut", "story": "Hezbollah", "img":"beirut.png"}, "geometry": { "type": "Point", "coordinates": [ 35.5131, 33.8869 ] } }
+{ "type": "Feature", "properties": {"city": "Helsinki", "story": "Finland's New Tech Power: Game Maker Supercell", "img":"helsinki.png"}, "geometry": { "type": "Point", "coordinates": [ 24.9375, 60.1708 ] } }
 ,
-{ "type": "Feature", "properties": {"city": "Helsinki", "story": "Supercell", "img":"helsinki.png"}, "geometry": { "type": "Point", "coordinates": [ 24.9375, 60.1708 ] } }
+{ "type": "Feature", "properties": {"city": "Beirut", "story": "Hezbollah's Tech-Savvy, Platform-Agnostic Guerilla Marketing Campaign", "img":"beirut.png"}, "geometry": { "type": "Point", "coordinates": [ 35.5131, 33.8869 ] } }
 ,
-{ "type": "Feature", "properties": {"city": "Nairobi", "story": "Africa", "img":"nairobi.png"}, "geometry": { "type": "Point", "coordinates": [ 36.8167, -1.2833 ] } }
+{ "type": "Feature", "properties": {"city": "Nairobi", "story": "Ten Days in Kenya With No Cash, Only a Phone", "img":"nairobi.png"}, "geometry": { "type": "Point", "coordinates": [ 36.8167, -1.2833 ] } }
 ,
-{ "type": "Feature", "properties": {"city": "Lyon", "story": "Tennis", "img":"lyon.png"}, "geometry": { "type": "Point", "coordinates": [ 4.8400, 45.7600 ] } }
+{ "type": "Feature", "properties": {"city": "Lyon", "story": "This High-Tech Tennis Racket Comes With a Built-In Digital Coach", "img":"lyon.png"}, "geometry": { "type": "Point", "coordinates": [ 4.8400, 45.7600 ] } }
 ,
-{ "type": "Feature", "properties": {"city": "London", "story": "Worms", "img":"london.png"}, "geometry": { "type": "Point", "coordinates": [ -0.1275, 51.5072 ] } }
+{ "type": "Feature", "properties": {"city": "London", "story": "London's Massive Subway Tunneling Machines Build as They Destroy", "img":"london.png"}, "geometry": { "type": "Point", "coordinates": [ -0.1275, 51.5072 ] } }
 ,
-{ "type": "Feature", "properties": {"city": "Reykjavik", "story": "Nerd Memorial", "img":"reykjavik.png"}, "geometry": { "type": "Point", "coordinates": [ -21.9333, 64.1333 ] } }
+{ "type": "Feature", "properties": {"city": "Reykjavik", "story": "Eve Online's Nerd Monument Vandalized Over In-Game Rivalry", "img":"reykjavik.png"}, "geometry": { "type": "Point", "coordinates": [ -21.9333, 64.1333 ] } }
 ,
-{ "type": "Feature", "properties": {"city": "Rio de Janeiro", "story": "MLB/BAM", "img":"rio.png"}, "geometry": { "type": "Point", "coordinates": [ -43.1964, -22.9083] } }
+{ "type": "Feature", "properties": {"city": "Rio de Janeiro", "story": "How Major League Baseball Helps ESPN Stream World Cup Soccer", "img":"rio.png"}, "geometry": { "type": "Point", "coordinates": [ -43.1964, -22.9083] } }
 ,
-{ "type": "Feature", "properties": {"city": "Cambridge, MA", "story": "Nuclear", "img":"cambridge.png"}, "geometry": { "type": "Point", "coordinates": [ -71.1106, 42.3736 ] } }
+{ "type": "Feature", "properties": {"city": "Cambridge, MA", "story": "Transatomic Power's Safer Reactor Eats Nuclear Waste", "img":"cambridge.png"}, "geometry": { "type": "Point", "coordinates": [ -71.1106, 42.3736 ] } }
 ,
-{ "type": "Feature", "properties": {"city": "Miami Beach, FL", "story": "Miami Beach Story TEST TEST TEST TEST TEST", "img":"miami.png"}, "geometry": { "type": "Point", "coordinates": [ -80.1341, 25.8130 ] } }
+{ "type": "Feature", "properties": {"city": "Miami Beach, FL", "story": "A Day at the Miami Beach Cyberarms Fair", "img":"miami.png"}, "geometry": { "type": "Point", "coordinates": [ -80.1341, 25.8130 ] } }
 ,
-{ "type": "Feature", "properties": {"city": "Denver, CO", "story": "Quantified", "img":"denver.png"}, "geometry": { "type": "Point", "coordinates": [ -104.9847, 39.7392] } }
+{ "type": "Feature", "properties": {"city": "Denver, CO", "story": "Is Chris Dancy the Most Quantified Self in America?", "img":"denver.png"}, "geometry": { "type": "Point", "coordinates": [ -104.9847, 39.7392] } }
 ,
-{ "type": "Feature", "properties": {"city": "Black Rock City, NV", "story": "Black Rock City Story", "img":"blackrock.png"}, "geometry": { "type": "Point", "coordinates": [ -119.260333, 40.753842 ] } }
+{ "type": "Feature", "properties": {"city": "Phoenix, AZ", "story": "The Incredible Stair-Climbing, Self-Parking, Amphibious Wheelchair", "img":"phoenix.png"}, "geometry": { "type": "Point", "coordinates": [-112.0667, 33.4500 ] } }
 ,
-{ "type": "Feature", "properties": {"city": "Phoenix, AZ", "story": "Wheelchair", "img":"phoenix.png"}, "geometry": { "type": "Point", "coordinates": [-112.0667, 33.4500 ] } }
+{ "type": "Feature", "properties": {"city": "Vandenberg AFB", "story": "New $500 Million Satellite Can See You From 383 Miles Away", "img":"afb.png"}, "geometry": { "type": "Point", "coordinates": [ -120.5681, 34.7328 ] } }
 ,
-{ "type": "Feature", "properties": {"city": "Vandenberg AFB", "story": "Satellite", "img":"afb.png"}, "geometry": { "type": "Point", "coordinates": [ -120.5681, 34.7328 ] } }
+{ "type": "Feature", "properties": {"city": "Black Rock City, NV", "story": "How to Build a New Gadget in Seven Steps", "img":"blackrock.png"}, "geometry": { "type": "Point", "coordinates": [ -119.260333, 40.753842 ] } }
 ,
-{ "type": "Feature", "properties": {"city": "DMZ", "story": "Balloons", "img":"dmz.png"}, "geometry": { "type": "Point", "coordinates": [ 128.6463, 37.9651 ] } }
+{ "type": "Feature", "properties": {"city": "DMZ", "story": "The No-Tech Tactics of North Korea's Most Wanted Defector", "img":"dmz.png"}, "geometry": { "type": "Point", "coordinates": [ 128.6463, 37.9651 ] } },
+{ "type": "Feature", "properties": {"city": "Silicon Valley", "story": "A Map of Silicon Valley's Imported Talent", "img":"silicon.png"}, "geometry": { "type": "Point", "coordinates": [ -122.0400, 37.3700 ] } }
 ]
 }
