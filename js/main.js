@@ -5,11 +5,6 @@ if("geolocation" in navigator) {
     latitude = position.coords.latitude
     longitude = position.coords.longitude
     var cookie = JSON.stringify({ "type": "Feature", "properties": {"city": "You", "story": "User Location"}, "geometry": { "type": "Point", "coordinates": [ longitude, latitude ] } })
-
-  function error() {
-    console.log('geolocation error')
-  }
-
     
     Cookies.set('location', cookie)
     places.features.push(JSON.parse(cookie))
@@ -17,6 +12,10 @@ if("geolocation" in navigator) {
   }
 
   navigator.geolocation.getCurrentPosition(success, error)
+
+  function error() {
+    console.log('geolocation error')
+  }
 }
 
 
