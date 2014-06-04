@@ -119,6 +119,29 @@ function ready(error, world, placesObj) {
     .attr('y', 223)
     .attr('x', 260)
 
+  svg.append('text')
+    .attr('id', 'next-destination')
+    .attr('x', 15)
+    .attr('y', 40)
+    .text('NEXT DESTINATION:')
+
+  svg.append('text')
+    .attr('id', 'global-tech')
+    .attr('x')
+
+  svg.selectAll('.next-story')
+    .data([places.features[9]])
+    .enter().append('foreignObject')
+    .attr('width', 200)
+    .attr('height', 250)
+    .attr('x', 15)
+    .attr('y', 50)
+    .attr('class', 'next-story')
+    .append('xhtml:p')
+    .text(function(d) {
+      return d.properties.story
+    })
+
   var addCookie = function(story) {
     if(Cookies.get('seen')) {
       var cookies = Cookies.get('seen')

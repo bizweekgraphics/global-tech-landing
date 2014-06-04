@@ -70,6 +70,19 @@
   fill: red;
 }
 
+#next-destination {
+  font-family: 'BWHaasRegular'
+}
+
+.next-story {
+  font-family: 'BWHaasRegular';
+  font-size: 2em;
+}
+
+.next-story:hover {
+  opacity: .5;
+}
+
 .arcs {
   opacity:.1;
   stroke: gray;
