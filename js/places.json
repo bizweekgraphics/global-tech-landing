@@ -20,11 +20,13 @@
 ,
 { "type": "Feature", "properties": {"city": "Cambridge, MA", "story": "Nuclear"}, "geometry": { "type": "Point", "coordinates": [ -71.1106, 42.3736 ] } }
 ,
+{ "type": "Feature", "properties": {"city": "Miami Beach, FL", "story": "Miami Beach Story"}, "geometry": { "type": "Point", "coordinates": [ -80.1341, 25.8130 ] } }
+,
 { "type": "Feature", "properties": {"city": "Denver, CO", "story": "Quantified"}, "geometry": { "type": "Point", "coordinates": [ -104.9847, 39.7392] } }
 ,
-{ "type": "Feature", "properties": {"city": "Parker, CO", "story": "Gadget"}, "geometry": { "type": "Point", "coordinates": [ -104.7658, 39.5194 ] } }
+{ "type": "Feature", "properties": {"city": "Black Rock City, NV", "story": "Black Rock City Story"}, "geometry": { "type": "Point", "coordinates": [ -119.260333, 40.753842 ] } }
 ,
-{ "type": "Feature", "properties": {"city": "Parker, AZ", "story": "Wheelchair"}, "geometry": { "type": "Point", "coordinates": [-114.2897, 34.1447 ] } }
+{ "type": "Feature", "properties": {"city": "Phoenix, AZ", "story": "Wheelchair"}, "geometry": { "type": "Point", "coordinates": [-112.0667, 33.4500 ] } }
 ,
 { "type": "Feature", "properties": {"city": "Vandenberg AFB", "story": "Satellite"}, "geometry": { "type": "Point", "coordinates": [ -120.5681, 34.7328 ] } }
 ,
