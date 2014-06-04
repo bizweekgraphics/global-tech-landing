@@ -152,7 +152,11 @@ function ready(error, world, placesObj) {
       base += 30
       return base
     })
-    .text(function(d) { return d.properties.story })
+    .text(function(d) { 
+      if(d.properties.story != "User Location"){
+        return d.properties.story 
+      }
+    })
     .on('mouseover', function(d) {
       var coordinates = d.geometry.coordinates
       d3.transition()
