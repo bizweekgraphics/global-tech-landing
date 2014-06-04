@@ -26,17 +26,17 @@ d3.select(window)
 
 var margin = {top: 0, right: 0, bottom: 0, left: 0};
 
-var width = 970 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
+var width = 630 - margin.left - margin.right,
+    height = 800 - margin.top - margin.bottom;
 
 var proj = d3.geo.orthographic()
-    .translate([width / 2, height / 2])
+    .translate([width / 2, height / 3.5])
     .clipAngle(90)
     .rotate([104.9847, -39.7392, 0])
     .scale(220);
 
 var sky = d3.geo.orthographic()
-    .translate([width / 2, height / 2])
+    .translate([width / 2, height / 3.5])
     .clipAngle(90)
     .rotate([104.9847, -39.7392, 0])
     .scale(300);
@@ -101,7 +101,7 @@ function ready(error, world, placesObj) {
 
 
   svg.append("g").attr("class","labels")
-    .selectAll("text").data(places.features)
+    .selectAll(".label").data(places.features)
     .enter().append("text")
     .attr("class", "label")
     .text(function(d) { return d.properties.city })
@@ -111,9 +111,19 @@ function ready(error, world, placesObj) {
       .attr("class", "sphere")
       .attr("d", path);
 
-  var base = 30
+  svg.append('text')
+    .text('TABLE OF CONTENTS')
+    .attr('id', 'table-contents-text')
+    .attr('y', 475)
+
+  svg.append('rect')
+    .attr('width', 630)
+    .attr('height', 10)
+    .attr('y', 490)
+
+  var base = 490
   svg.append('g').attr('class', 'city-texts')
-    .selectAll('text').data(places.features)
+    .selectAll('.city-text').data(places.features)
     .enter().append('text')
     .attr('class', 'city-text')
     .attr('x', 50)
