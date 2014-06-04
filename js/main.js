@@ -1,5 +1,4 @@
 var places;
-var userGeo = false  
 
 if("geolocation" in navigator) {
   navigator.geolocation.getCurrentPosition(success, error)
@@ -10,7 +9,6 @@ if("geolocation" in navigator) {
     var cookie = JSON.stringify({ "type": "Feature", "properties": {"city": "You", "story": "User Location"}, "geometry": { "type": "Point", "coordinates": [ longitude, latitude ] } })
     
     Cookies.set('location', cookie)
-    userGeo = true
     places.features.push(JSON.parse(cookie))
     geoRefresh()
   }
@@ -71,7 +69,7 @@ queue()
 function ready(error, world, placesObj) {
   places = placesObj
 
-  if(userGeo){
+  if(Cookies.get('location')){
     places.features.push(JSON.parse(Cookies.get('location')))
   }
 
@@ -92,7 +90,13 @@ function ready(error, world, placesObj) {
       .selectAll("text").data(places.features)
     .enter().append("path")
       .attr("class", "point")
-      .attr("d", path);
+      .attr("d", path)
+      .attr('id', function(d) {
+        if(d.properties.city === "You") {
+          return "you"
+        }
+      })
+
 
 
 
