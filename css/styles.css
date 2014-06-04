@@ -83,12 +83,10 @@
   -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(SizingMethod='auto expand', M11=0.7071067811865476, M12=-0.7071067811865475, M21=0.7071067811865475, M22=0.7071067811865476)"; 
 }
 
-.city-text {
-  -webkit-backface-visibility: hidden;
-}
 
 .city-text:hover{
   cursor: pointer;
+  color: rgba(255, 255, 255, .5);
 }
 
 #table-contents-text {
