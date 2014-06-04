@@ -34,9 +34,9 @@
   font-stretch: normal;
 }
 
-#globe svg {
+/*#globe svg {
   border: .25em solid black;
-}
+}*/
 
 .land {
   fill: white;
@@ -77,6 +77,10 @@
 .next-story {
   font-family: 'BWHaasRegular';
   font-size: 2em;
+}
+
+#global-tech {
+  font-family: 'BWHaasRegular';
 }
 
 .next-story:hover {

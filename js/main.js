@@ -136,7 +136,6 @@ function ready(error, world, placesObj) {
   svg.append('g').attr('class', 'city-texts')
     .selectAll('.city-text').data(places.features)
     .enter().append('foreignObject')
-    .attr('class', 'city-text')
     .attr('x', function(d) {
       var idx = places.features.indexOf(d)
       if(idx < 5) {
@@ -152,12 +151,16 @@ function ready(error, world, placesObj) {
       if(idx === 5 || idx === 9) {
         base = 490
       }
+      if(idx > 0 && places.features[idx-1].properties.story.length > 21) {
+        base += 18
+      }
       base += 30
       return base
     })
     .attr('width', 200)
     .attr('height', 50)
     .append('xhtml:p')
+    .attr('class', 'city-text')
     .text(function(d) { 
       if(d.properties.story != "User Location"){
         return d.properties.story 
@@ -192,6 +195,7 @@ function ready(error, world, placesObj) {
       addCookie(d)
       console.log(Cookies.get('seen'))
     })
+
 
   var addCookie = function(story) {
     if(Cookies.get('seen')) {

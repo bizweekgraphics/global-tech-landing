@@ -125,9 +125,14 @@ function ready(error, world, placesObj) {
     .attr('y', 40)
     .text('NEXT DESTINATION:')
 
-  svg.append('text')
+  svg.append('foreignObject')
+    .attr('height', 30)
+    .attr('width', 300)
+    .attr('x', 10)
+    .attr('y', 220)
+    .append('xhtml:p')
     .attr('id', 'global-tech')
-    .attr('x')
+    .text('Global Tech /Table of Contents »')
 
   svg.selectAll('.next-story')
     .data([places.features[9]])
@@ -141,6 +146,15 @@ function ready(error, world, placesObj) {
     .text(function(d) {
       return d.properties.story
     })
+
+  svg.append('rect')
+    .attr('width', 630)
+    .attr('height', 250)
+    .style('stroke', 'black')
+    .style('fill', 'none')
+    .style('stroke-width', '.5em')
+
+
 
   var addCookie = function(story) {
     if(Cookies.get('seen')) {
