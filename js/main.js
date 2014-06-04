@@ -11,11 +11,11 @@ if("geolocation" in navigator) {
     geoRefresh()
   }
 
-  navigator.geolocation.getCurrentPosition(success, error)
-
   function error() {
     console.log('geolocation error')
   }
+
+  navigator.geolocation.getCurrentPosition(success, error)
 }
 
 
