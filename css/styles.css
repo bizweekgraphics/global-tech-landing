@@ -84,9 +84,9 @@
 }
 
 .city-text:hover {
-/*  color: black;
+  /*color: black;*/
   opacity: .5;
-*/  cursor: pointer;
+  cursor: pointer;
 }
 
 #table-contents-text {
