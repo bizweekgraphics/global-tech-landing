@@ -1,10 +1,15 @@
 var urlArray = ["http://www.businessweek.com/articles/2014-06-04/chinas-xiaomi-the-worlds-fastest-growing-phone-maker", "http://www.businessweek.com/articles/2014-06-05/clash-of-clans-maker-supercell-succeeds-nokia-as-finlands-tech-power", "http://www.businessweek.com/articles/2014-06-05/tech-savvy-hezbollah-goes-multiplatform-to-spread-its-message", "http://www.businessweek.com/articles/2014-06-05/safaricoms-m-pesa-turns-kenya-into-a-mobile-payment-paradise", "http://www.businessweek.com/articles/2014-06-05/babolat-tennis-rackets-sensors-measure-swing-speed-strength", "http://www.businessweek.com/articles/2014-06-05/londons-massive-subway-tunneling-machines-build-as-they-destroy", "http://www.businessweek.com/articles/2014-06-05/eve-onlines-nerd-monument-vandalized-over-in-game-rivalry", "http://www.businessweek.com/articles/2014-06-05/how-major-league-baseball-helps-espn-stream-world-cup-soccer", "http://www.businessweek.com/articles/2014-06-05/transatomic-powers-safer-reactor-eats-nuclear-waste", "http://www.businessweek.com/articles/2014-06-05/infiltrate-conference-draws-hackers-spies-to-miami-beach", "http://www.businessweek.com/articles/2014-06-05/is-chris-dancy-the-most-quantified-self-in-america", "http://www.businessweek.com/articles/2014-06-05/founded-by-army-vet-tankchair-makes-all-terrain-wheelchairs", "http://www.businessweek.com/articles/2014-06-05/digitalglobes-new-satellite-can-see-everything-from-383-miles-away", "http://www.businessweek.com/articles/2014-06-05/how-to-build-a-new-gadget-in-seven-steps", "http://www.businessweek.com/articles/2014-06-05/the-no-tech-tactics-of-north-koreas-target-zero-park-sang-hak", "http://www.businessweek.com/articles/2014-06-05/tech-immigrants-a-map-of-silicon-valleys-imported-talent"]
 
-var thisUrl = document.referrer
+var thisUrl;
 
-if(!thisUrl) {
-  var thisUrl = _.shuffle(urlArray)[0]
+if(urlArray.indexOf(window.top.location.href) != -1) {
+  thisUrl = window.top.location.href
+} else if (urlArray.indexOf(document.referrer) != -1) {
+  thisUrl = document.referrer
+} else {
+  thisUrl = _.shuffle(urlArray)[0]  
 }
+
 
 var thisStory
 
@@ -13,11 +18,11 @@ var addCookie = function(story) {
     var cookies = Cookies.get('seen')
     var cookieArray = cookies.split('|')
     var lastCookie = cookieArray[cookieArray.length - 1]
-    if(story && story != lastCookie) {
+    if(urlArray.indexOf(story) != -1 && story != lastCookie) {
       Cookies.set('seen', cookies + '|' + story)  
     }
   } else {
-    if(story) {
+    if(story && urlArray.indexOf(story) != -1) {
       Cookies.set('seen', story)
     }
   }
@@ -69,8 +74,9 @@ var rotateTransition = function() {
           .attr('class', 'next-story')
           .append('xhtml:p')
           .attr('width', 220)
-          .append('a')
-          .attr('href', function(d) {return d.properties.url})
+          .on('click', function(d) {
+            window.top.location.href = d.properties.url
+          })
           .text(function(d) {
             return d.properties.story
           })
@@ -295,8 +301,9 @@ function ready(error, world, placesObj) {
     .attr('x', 15)
     .attr('y', 220)
     .append('xhtml:p')
-    .append('a')
-    .attr('href', 'http://www.businessweek.com/features/the-global-technology-issue-way-beyond-silicon-valley/')
+    .on('click', function() {
+      window.top.location.href = 'http://www.businessweek.com/features/the-global-technology-issue-way-beyond-silicon-valley/'
+    })
     .attr('id', 'global-tech')
     .text('*Discover More #GlobalTech Content*')
 
@@ -310,8 +317,9 @@ function ready(error, world, placesObj) {
     .attr('class', 'next-story')
     .append('xhtml:p')
     .attr('width', 220)
-    .append('a')
-    .attr('href', function(d) {return d.properties.url})
+    .on('click', function(d) {
+      window.top.location.href = d.properties.url
+    })
     .text(function(d) {
       return d.properties.story
     })
