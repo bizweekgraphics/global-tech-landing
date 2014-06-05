@@ -35,8 +35,6 @@ if("geolocation" in navigator) {
 d3.select(window)
     .on("mousemove", mousemove)
     .on("mouseup", mouseup)
-    .on('touchmove', mousemove)
-    .on('touchend', mouseup)
 
 var margin = {top: 0, right: 0, bottom: 0, left: 0};
 
@@ -73,7 +71,6 @@ var svg = d3.select("#globe").append("svg")
             .attr("width", width)
             .attr("height", height)
             .on("mousedown", mousedown)
-            .on('touchstart', mousedown)
 
 queue()
     .defer(d3.json, "js/world-110m.json")
