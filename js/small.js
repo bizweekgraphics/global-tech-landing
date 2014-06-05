@@ -1,13 +1,40 @@
 var thisUrl = document.referrer
+var thisStory
+
+var addCookie = function(story) {
+  if(Cookies.get('seen')) {
+    var cookies = Cookies.get('seen')
+    Cookies.set('seen', cookies + '|' + story)  
+    console.log(Cookies.get('seen'))
+  } else {
+    Cookies.set('seen', story)
+  }
+  geoRefresh()
+  rotateTransition()
+}
 
 var setCookie = function() {
-  var thisStory = _.find(places.features, function(feature) {
-    return feature.properties.url === thisUrl
-  })
+  // thisStory = _.find(places.features, function(feature) {
+  //   return feature.properties.url === thisUrl
+  // })
+  thisStory = { "type": "Feature", "properties": {"city": "Beijing", "story": "Xiaomi's Phones Have Conquered China. Now It's Aiming for the Rest of the World", "img":"beijing.png", "url": "http://www.businessweek.com/articles/2014-06-04/chinas-xiaomi-the-worlds-fastest-growing-phone-maker"}, "geometry": { "type": "Point", "coordinates": [ 116.3917, 39.9139 ] } }
   var cookie = JSON.stringify(thisStory)
   addCookie(cookie)
 } 
 
+var rotateTransition = function() {
+    d3.transition()
+      .duration(750)
+      .tween("rotate", function() {
+        var r = d3.interpolate(proj.rotate(), [-thisStory.geometry.coordinates[0], -thisStory.geometry.coordinates[1]]);
+        return function(t) {
+          proj.rotate(r(t));
+          sky.rotate(r(t))
+          svg.selectAll("path").attr("d", path);
+          refresh()
+        }
+      })
+}
 
 if("geolocation" in navigator) {
   navigator.geolocation.getCurrentPosition(success, error)
@@ -78,6 +105,8 @@ queue()
 function ready(error, world, placesObj) {
   places = placesObj
 
+  setCookie()
+
   if(Cookies.get('location')){
     places.features.push(JSON.parse(Cookies.get('location')))
   }
@@ -144,7 +173,7 @@ function ready(error, world, placesObj) {
     .text('Global Tech /Table of Contents »')
 
   svg.selectAll('.next-story')
-    .data([places.features[9]])
+    .data([thisStory])
     .enter().append('foreignObject')
     .attr('width', 200)
     .attr('height', 250)
@@ -162,17 +191,6 @@ function ready(error, world, placesObj) {
     .style('stroke', 'black')
     .style('fill', 'none')
     .style('stroke-width', '.5em')
-
-
-
-  var addCookie = function(story) {
-    if(Cookies.get('seen')) {
-      var cookies = Cookies.get('seen')
-      Cookies.set('seen', cookies + '|' + story)  
-    } else {
-      Cookies.set('seen', story)
-    }
-  }
 
   if(Cookies.get('seen')) {
     createLinks()

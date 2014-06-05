@@ -204,10 +204,6 @@ function ready(error, world, placesObj) {
       console.log(Cookies.get('seen'))
     })
 
-  $('.city-text').hover(function() {
-    $(this).css('color', 'rgba(0,0,0,.5)')
-  })
-
   var setImgY = function(d) {
     var city = d.properties.city
     var y;
