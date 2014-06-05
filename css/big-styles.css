@@ -71,12 +71,13 @@
 }
 
 #next-destination {
-  font-family: 'BWHaasRegular'
+  font-family: 'BWHaasRegular';
+  font-size: 1em;
 }
 
 .next-story {
   font-family: 'BWHaasRegular';
-  font-size: 1.5em;
+  font-size: 2em;
 }
 
 .city-arrow img {

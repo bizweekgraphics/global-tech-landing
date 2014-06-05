@@ -275,7 +275,7 @@ function ready(error, world, placesObj) {
     .append('a')
     .attr('href', '/')
     .attr('id', 'global-tech')
-    .text('Global Tech /Table of Contents »')
+    .text('*Discover More #GlobalTech Content*')
 
   svg.selectAll('.next-story')
     .data([nextStory])
