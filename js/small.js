@@ -30,6 +30,10 @@ var setCookie = function() {
   thisStoryIdx = places.features.indexOf(thisStory)
   nextStory = places.features[thisStoryIdx + 1]
 
+  if(!nextStory) {
+    nextStory = places.features[0]
+  }
+
   // var cookie = JSON.stringify(thisStory)
   var cookie = thisUrl
   addCookie(cookie)
@@ -280,12 +284,13 @@ function ready(error, world, placesObj) {
   svg.selectAll('.next-story')
     .data([nextStory])
     .enter().append('foreignObject')
-    .attr('width', 200)
+    .attr('width', 220)
     .attr('height', 250)
     .attr('x', 15)
     .attr('y', 50)
     .attr('class', 'next-story')
     .append('xhtml:p')
+    .attr('width', 220)
     .append('a')
     .attr('href', function(d) {return d.properties.url})
     .text(function(d) {

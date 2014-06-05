@@ -30,6 +30,10 @@ var setCookie = function() {
   thisStoryIdx = places.features.indexOf(thisStory)
   nextStory = places.features[thisStoryIdx + 1]
 
+  if(!nextStory) {
+    nextStory = places.features[0]
+  }
+
   // var cookie = JSON.stringify(thisStory)
   var cookie = thisUrl
   addCookie(cookie)

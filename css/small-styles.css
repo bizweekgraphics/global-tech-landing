@@ -92,8 +92,8 @@
   opacity: .5;
 }
 
-.next-story:hover {
-  opacity: .5;
+.next-story a:hover {
+  color: lightgrey;
 }
 
 svg a {
