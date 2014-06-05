@@ -88,10 +88,6 @@
   font-family: 'BWHaasRegular';
 }
 
-#global-tech:hover {
-  opacity: .5;
-}
-
 svg a:hover {
   color: grey;
 }
