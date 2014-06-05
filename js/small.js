@@ -1,4 +1,5 @@
-var thisUrl = document.referrer
+// var thisUrl = document.referrer
+var thisUrl = 'http://www.businessweek.com/articles/2014-06-05/infiltrate-conference-draws-hackers-spies-to-miami-beach'
 var thisStory
 
 var addCookie = function(story) {
@@ -8,15 +9,17 @@ var addCookie = function(story) {
   } else {
     Cookies.set('seen', story)
   }
-  geoRefresh()
   rotateTransition()
+  // geoRefresh()
 }
 
 var setCookie = function() {
-  // thisStory = _.find(places.features, function(feature) {
-  //   return feature.properties.url === thisUrl
-  // })
-  thisStory = { "type": "Feature", "properties": {"city": "Beirut", "story": "Hezbollah's Tech-Savvy, Platform-Agnostic Guerilla Marketing Campaign", "img":"beirut.png", "url": "http://www.businessweek.com/articles/2014-06-05/tech-savvy-hezbollah-goes-multiplatform-to-spread-its-message"}, "geometry": { "type": "Point", "coordinates": [ 35.5131, 33.8869 ] } }
+  thisStory = _.find(places.features, function(feature) {
+    return feature.properties.url === thisUrl
+  })
+  thisStoryIdx = places.features.indexOf(thisStory)
+  nextStory = places.features[thisStoryIdx + 1]
+
   var cookie = JSON.stringify(thisStory)
   addCookie(cookie)
 } 
@@ -25,7 +28,7 @@ var rotateTransition = function() {
     d3.transition()
       .each('end', function() {
         $('.city-arrow img').attr('src', 'img/' + thisStory.properties.img)
-        setImgY(d)
+        setImgY(thisStory)
         $('.city-arrow').show()
       })
       .duration(750)
@@ -38,6 +41,7 @@ var rotateTransition = function() {
           refresh()
         }
       })
+  geoRefresh()
 }
   var offset = 157
 
@@ -238,7 +242,7 @@ function ready(error, world, placesObj) {
     .text('Global Tech /Table of Contents »')
 
   svg.selectAll('.next-story')
-    .data([thisStory])
+    .data([nextStory])
     .enter().append('foreignObject')
     .attr('width', 200)
     .attr('height', 250)
@@ -441,12 +445,12 @@ function location_along_arc(start, end, loc) {
 // modified from http://bl.ocks.org/1392560
 var m0, o0;
 function mousedown() {
-  $('.city-arrow').hide()
   m0 = [d3.event.pageX, d3.event.pageY];
   o0 = proj.rotate();
   d3.event.preventDefault();
 }
 function mousemove() {
+  $('.city-arrow').hide()
   if (m0) {
     var m1 = [d3.event.pageX, d3.event.pageY]
       , o1 = [o0[0] + (m1[0] - m0[0]) / 6, o0[1] + (m0[1] - m1[1]) / 6];
