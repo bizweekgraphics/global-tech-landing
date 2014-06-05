@@ -44,13 +44,13 @@ var cookiesToJson = function() {
 var rotateTransition = function() {
     d3.transition()
       .each('end', function() {
-        $('.city-arrow img').attr('src', 'img/' + thisStory.properties.img)
-        setImgY(thisStory)
+        $('.city-arrow img').attr('src', 'img/' + nextStory.properties.img)
+        setImgY(nextStory)
         $('.city-arrow').show()
       })
       .duration(750)
       .tween("rotate", function() {
-        var r = d3.interpolate(proj.rotate(), [-thisStory.geometry.coordinates[0], -thisStory.geometry.coordinates[1]]);
+        var r = d3.interpolate(proj.rotate(), [-nextStory.geometry.coordinates[0], -nextStory.geometry.coordinates[1]]);
         return function(t) {
           proj.rotate(r(t));
           sky.rotate(r(t))
