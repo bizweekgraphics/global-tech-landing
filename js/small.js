@@ -55,6 +55,23 @@ var rotateTransition = function() {
     d3.transition()
       .each('end', function() {
         $('svg img').remove()
+        $('.next-story').remove()
+
+          svg.selectAll('.next-story')
+          .data([nextStory])
+          .enter().append('foreignObject')
+          .attr('width', 220)
+          .attr('height', 250)
+          .attr('x', 15)
+          .attr('y', 50)
+          .attr('class', 'next-story')
+          .append('xhtml:p')
+          .attr('width', 220)
+          .append('a')
+          .attr('href', function(d) {return d.properties.url})
+          .text(function(d) {
+            return d.properties.story
+          })
 
         svg.append('foreignObject')
           .data([thisStory])
