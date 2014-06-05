@@ -1,5 +1,5 @@
 // var thisUrl = document.referrer
-var thisUrl = 'http://www.businessweek.com/articles/2014-06-05/safaricoms-m-pesa-turns-kenya-into-a-mobile-payment-paradise'
+var thisUrl = 'http://www.businessweek.com/articles/2014-06-05/is-chris-dancy-the-most-quantified-self-in-america'
 var thisStory
 
 var addCookie = function(story) {

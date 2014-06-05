@@ -1,5 +1,17 @@
 var places;
 
+var cookiesToJson = function() {
+  var cookieArray = []
+  var cookies = Cookies.get('seen').split('|')
+  cookies.forEach(function(cookie) {
+    var obj = _.find(places.features, function(feature) {
+      return feature.properties.url === cookie
+    })
+    cookieArray.push(obj)
+  })
+  return cookieArray
+}
+
 if("geolocation" in navigator) {
   function success(position) {
     latitude = position.coords.latitude
@@ -171,7 +183,7 @@ function ready(error, world, placesObj) {
       }
     })
     .on('mouseover', function(d) {
-      $(this).css('opacity', .5)
+      $(this).css('color', 'lightgrey')
       over = true
       var coordinates = d.geometry.coordinates
       d3.transition()
@@ -197,11 +209,6 @@ function ready(error, world, placesObj) {
       $(this).css('opacity', 1)
       over = false
       $('.city-arrow').hide()
-    })
-    .on('click', function(d) {
-      d = JSON.stringify(d)
-      addCookie(d)
-      console.log(Cookies.get('seen'))
     })
 
   var setImgY = function(d) {
@@ -264,19 +271,6 @@ function ready(error, world, placesObj) {
   }
 
 
-  var addCookie = function(story) {
-    if(Cookies.get('seen')) {
-      var cookies = Cookies.get('seen')
-      Cookies.set('seen', cookies + '|' + story)  
-    } else {
-      Cookies.set('seen', story)
-    }
-  }
-
-  if(Cookies.get('seen')) {
-    createLinks()
-  }
-
 
   // build geoJSON features from links array
   links.forEach(function(e,i,a) {
@@ -302,14 +296,15 @@ function ready(error, world, placesObj) {
 
 var createLinks = function() {
   if(Cookies.get('location')) {
-    var seenArray = (Cookies.get('location') + '|' + Cookies.get('seen')).split('|')
+    var locationArray = [JSON.parse(Cookies.get('location'))]
+    var seenArray = locationArray.concat(cookiesToJson())
   } else {
-    var seenArray = Cookies.get('seen').split('|')
+    var seenArray = cookiesToJson()
   }
   seenArray.forEach(function(feature, index) {
     if(index < (seenArray.length - 1) && Cookies.get('seen')){
-      var sourceObj = JSON.parse(feature)
-      var targetObj = JSON.parse(seenArray[index + 1])
+      var sourceObj = feature
+      var targetObj = seenArray[index + 1]
       if(JSON.stringify(sourceObj) != JSON.stringify(targetObj)){
         links.push({
           source: sourceObj.geometry.coordinates,  
@@ -325,6 +320,7 @@ var geoRefresh = function() {
   arcLines = []
   
   createLinks()
+
 
   links.forEach(function(e,i,a) {
     var feature =   { "type": "Feature", "geometry": { "type": "LineString", "coordinates": [e.source,e.target] }}
