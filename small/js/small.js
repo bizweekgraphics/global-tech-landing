@@ -2,10 +2,10 @@ var urlArray = ["http://www.businessweek.com/articles/2014-06-04/chinas-xiaomi-t
 
 var thisUrl;
 
-if(urlArray.indexOf(window.top.location.href) != -1) {
-  thisUrl = window.top.location.href
-} else if (urlArray.indexOf(document.referrer) != -1) {
-  thisUrl = document.referrer
+if(urlArray.indexOf(window.top.location.href.split('#')[0]) != -1) {
+  thisUrl = window.top.location.href.split('#')[0]
+} else if (urlArray.indexOf(document.referrer.split('#')[0]) != -1) {
+  thisUrl = document.referrer.split('#')[0]
 } else {
   thisUrl = _.shuffle(urlArray)[0]  
 }
