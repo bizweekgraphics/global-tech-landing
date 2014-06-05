@@ -441,10 +441,11 @@ function fade_at_edge(d) {
   var start_dist = 1.57 - arc.distance({source: start, target: centerPos}),
       end_dist = 1.57 - arc.distance({source: end, target: centerPos});
     
-  var fade = d3.scale.linear().domain([-.1,0]).range([0,.1]) 
+  var fade = d3.scale.linear().domain([-.5,0]).range([0,.7]) 
   var dist = start_dist < end_dist ? start_dist : end_dist; 
 
   return fade(dist)
+  // return 1
 }
 
 function location_along_arc(start, end, loc) {
