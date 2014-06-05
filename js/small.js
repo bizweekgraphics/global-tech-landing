@@ -294,7 +294,7 @@ function ready(error, world, placesObj) {
     .attr('y', 220)
     .append('xhtml:p')
     .append('a')
-    .attr('href', '/')
+    .attr('href', 'http://www.businessweek.com/features/the-global-technology-issue-way-beyond-silicon-valley/')
     .attr('id', 'global-tech')
     .text('*Discover More #GlobalTech Content*')
 
