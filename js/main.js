@@ -153,9 +153,9 @@ function ready(error, world, placesObj) {
       if(idx < 6) {
         return 0 
       } else if(idx >= 6 && idx < 11) {
-        return 220
+        return 215
       } else {
-        return 440        
+        return 430        
       }
     })
     .attr('y', function(d) {
@@ -173,7 +173,7 @@ function ready(error, world, placesObj) {
       base += 60
       return base
     })
-    .attr('width', 200)
+    .attr('width', 190)
     .attr('height', 200)
     .append('xhtml:p')
     .append("a")
