@@ -260,7 +260,6 @@ function ready(error, world, placesObj) {
         y = 255
         break;
     }
-    console.log(y)
     $('.city-arrow').attr('y', y)
   }
 

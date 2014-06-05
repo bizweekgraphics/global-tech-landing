@@ -79,6 +79,11 @@
   font-size: 1.5em;
 }
 
+.city-arrow img {
+  width: 125px;
+  height: auto;
+}
+
 #global-tech {
   font-family: 'BWHaasRegular';
 }

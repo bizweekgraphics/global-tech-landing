@@ -5,7 +5,6 @@ var addCookie = function(story) {
   if(Cookies.get('seen')) {
     var cookies = Cookies.get('seen')
     Cookies.set('seen', cookies + '|' + story)  
-    console.log(Cookies.get('seen'))
   } else {
     Cookies.set('seen', story)
   }
@@ -17,13 +16,18 @@ var setCookie = function() {
   // thisStory = _.find(places.features, function(feature) {
   //   return feature.properties.url === thisUrl
   // })
-  thisStory = { "type": "Feature", "properties": {"city": "Beijing", "story": "Xiaomi's Phones Have Conquered China. Now It's Aiming for the Rest of the World", "img":"beijing.png", "url": "http://www.businessweek.com/articles/2014-06-04/chinas-xiaomi-the-worlds-fastest-growing-phone-maker"}, "geometry": { "type": "Point", "coordinates": [ 116.3917, 39.9139 ] } }
+  thisStory = { "type": "Feature", "properties": {"city": "Beirut", "story": "Hezbollah's Tech-Savvy, Platform-Agnostic Guerilla Marketing Campaign", "img":"beirut.png", "url": "http://www.businessweek.com/articles/2014-06-05/tech-savvy-hezbollah-goes-multiplatform-to-spread-its-message"}, "geometry": { "type": "Point", "coordinates": [ 35.5131, 33.8869 ] } }
   var cookie = JSON.stringify(thisStory)
   addCookie(cookie)
 } 
 
 var rotateTransition = function() {
     d3.transition()
+      .each('end', function() {
+        $('.city-arrow img').attr('src', 'img/' + thisStory.properties.img)
+        setImgY(d)
+        $('.city-arrow').show()
+      })
       .duration(750)
       .tween("rotate", function() {
         var r = d3.interpolate(proj.rotate(), [-thisStory.geometry.coordinates[0], -thisStory.geometry.coordinates[1]]);
@@ -35,6 +39,66 @@ var rotateTransition = function() {
         }
       })
 }
+  var offset = 157
+
+  var setImgY = function(d) {
+    var city = d.properties.city
+    var y;
+    switch(city) {
+      case "Beijing":
+        y = 217 - offset
+        break;
+      case "Beirut":
+        y = 217 - offset
+        break;
+      case "Helsinki":
+        y = 222 - offset
+        break;
+      case "Nairobi":
+        y = 220 - offset
+        break;
+      case "Lyon":
+        y = 207 - offset
+        break;
+      case "London":
+        y = 219 - offset
+        break;
+      case "Reykjavik":
+        y = 225 - offset
+        break;
+      case "Rio de Janeiro":
+        y = 234 - offset
+        break;
+      case "Cambridge, MA":
+        y = 236 - offset
+        break;
+      case "Miami Beach, FL":
+        y = 229 - offset
+        break;
+      case "Denver, CO":
+        y = 218 - offset
+        break;
+      case "Black Rock City, NV":
+        y = 237 - offset
+        break;
+      case "Phoenix, AZ":
+        y = 220 - offset
+        break;
+      case "Vandenberg AFB":
+        y = 236 - offset
+        break;
+      case "DMZ":
+        y = 236 - offset
+        break;
+      case "Silicon Valley":
+        y = 233 - offset
+        break;
+      default: 
+        y = 255 - offset
+        break;
+    }
+    $('.city-arrow').attr('y', y)
+  }
 
 if("geolocation" in navigator) {
   navigator.geolocation.getCurrentPosition(success, error)
@@ -149,13 +213,14 @@ function ready(error, world, placesObj) {
       .attr("class", "sphere")
       .attr("d", path);
 
-  svg.append('rect')
-    .attr('display', 'none')
+  svg.append('foreignObject')
+    .data([thisStory])
     .attr('class', 'city-arrow')
-    .attr('width', 50)
-    .attr('height', 10)
-    .attr('y', 223)
-    .attr('x', 260)
+    .attr('width', 125)
+    .attr('height', 100)
+    .attr('y', 60)
+    .attr('x', 300)
+    .append('xhtml:img')
 
   svg.append('text')
     .attr('id', 'next-destination')
@@ -376,6 +441,7 @@ function location_along_arc(start, end, loc) {
 // modified from http://bl.ocks.org/1392560
 var m0, o0;
 function mousedown() {
+  $('.city-arrow').hide()
   m0 = [d3.event.pageX, d3.event.pageY];
   o0 = proj.rotate();
   d3.event.preventDefault();
