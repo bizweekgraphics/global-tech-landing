@@ -69,8 +69,9 @@ var rotateTransition = function() {
           .attr('class', 'next-story')
           .append('xhtml:p')
           .attr('width', 220)
-          .append('a')
-          .attr('href', function(d) {return d.properties.url})
+          .on('click', function(d) {
+            window.top.location.href = d.properties.url
+          })
           .text(function(d) {
             return d.properties.story
           })
@@ -295,8 +296,9 @@ function ready(error, world, placesObj) {
     .attr('x', 15)
     .attr('y', 220)
     .append('xhtml:p')
-    .append('a')
-    .attr('href', 'http://www.businessweek.com/features/the-global-technology-issue-way-beyond-silicon-valley/')
+    .on('click', function() {
+      window.top.location.href = 'http://www.businessweek.com/features/the-global-technology-issue-way-beyond-silicon-valley/'
+    })
     .attr('id', 'global-tech')
     .text('*Discover More #GlobalTech Content*')
 
@@ -310,8 +312,9 @@ function ready(error, world, placesObj) {
     .attr('class', 'next-story')
     .append('xhtml:p')
     .attr('width', 220)
-    .append('a')
-    .attr('href', function(d) {return d.properties.url})
+    .on('click', function(d) {
+      window.top.location.href = d.properties.url
+    })
     .text(function(d) {
       return d.properties.story
     })

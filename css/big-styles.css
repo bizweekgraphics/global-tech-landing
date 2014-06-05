@@ -37,6 +37,10 @@
 /*#globe svg {
   border: .25em solid black;
 }*/
+body {
+  margin: 0;
+  padding: 0;
+}
 
 .land {
   fill: white;
@@ -91,6 +95,16 @@
 
 svg a:hover {
   color: grey;
+}
+
+.next-story p:hover {
+  color: grey;
+  cursor: pointer;
+}
+
+#global-tech:hover {
+  color:grey;
+  cursor: pointer;
 }
 
 svg a {
