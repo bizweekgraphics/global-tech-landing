@@ -176,6 +176,8 @@ function ready(error, world, placesObj) {
     .attr('width', 200)
     .attr('height', 200)
     .append('xhtml:p')
+    .append("a")
+    .attr("href", function(d){return d.properties.url;}) 
     .attr('class', 'city-text')
     .text(function(d) { 
       if(d.properties.story != "User Location"){
