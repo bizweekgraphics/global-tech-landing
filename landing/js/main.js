@@ -1,39 +1,4 @@
-var urlArray = ["http://www.businessweek.com/articles/2014-06-04/chinas-xiaomi-the-worlds-fastest-growing-phone-maker", "http://www.businessweek.com/articles/2014-06-05/clash-of-clans-maker-supercell-succeeds-nokia-as-finlands-tech-power", "http://www.businessweek.com/articles/2014-06-05/tech-savvy-hezbollah-goes-multiplatform-to-spread-its-message", "http://www.businessweek.com/articles/2014-06-05/safaricoms-m-pesa-turns-kenya-into-a-mobile-payment-paradise", "http://www.businessweek.com/articles/2014-06-05/babolat-tennis-rackets-sensors-measure-swing-speed-strength", "http://www.businessweek.com/articles/2014-06-05/londons-massive-subway-tunneling-machines-build-as-they-destroy", "http://www.businessweek.com/articles/2014-06-05/eve-onlines-nerd-monument-vandalized-over-in-game-rivalry", "http://www.businessweek.com/articles/2014-06-05/how-major-league-baseball-helps-espn-stream-world-cup-soccer", "http://www.businessweek.com/articles/2014-06-05/transatomic-powers-safer-reactor-eats-nuclear-waste", "http://www.businessweek.com/articles/2014-06-05/infiltrate-conference-draws-hackers-spies-to-miami-beach", "http://www.businessweek.com/articles/2014-06-05/is-chris-dancy-the-most-quantified-self-in-america", "http://www.businessweek.com/articles/2014-06-05/founded-by-army-vet-tankchair-makes-all-terrain-wheelchairs", "http://www.businessweek.com/articles/2014-06-05/digitalglobes-new-satellite-can-see-everything-from-383-miles-away", "http://www.businessweek.com/articles/2014-06-05/how-to-build-a-new-gadget-in-seven-steps", "http://www.businessweek.com/articles/2014-06-05/the-no-tech-tactics-of-north-koreas-target-zero-park-sang-hak", "http://www.businessweek.com/articles/2014-06-05/tech-immigrants-a-map-of-silicon-valleys-imported-talent"]
-
-var thisUrl = document.referrer
-
-if(!thisUrl) {
-  var thisUrl = _.shuffle(urlArray)[0]
-}
-
-var thisStory
-
-var addCookie = function(story) {
-  if(Cookies.get('seen')) {
-    var cookies = Cookies.get('seen')
-    var cookieArray = cookies.split('|')
-    var lastCookie = cookieArray[cookieArray.length - 1]
-    if(story != lastCookie) {
-      Cookies.set('seen', cookies + '|' + story)  
-    }
-  } else {
-    Cookies.set('seen', story)
-  }
-  rotateTransition()
-  // geoRefresh()
-}
-
-var setCookie = function() {
-  thisStory = _.find(places.features, function(feature) {
-    return feature.properties.url === thisUrl
-  })
-  thisStoryIdx = places.features.indexOf(thisStory)
-  nextStory = places.features[thisStoryIdx + 1]
-
-  // var cookie = JSON.stringify(thisStory)
-  var cookie = thisUrl
-  addCookie(cookie)
-} 
+var places;
 
 var cookiesToJson = function() {
   var cookieArray = []
@@ -47,100 +12,7 @@ var cookiesToJson = function() {
   return cookieArray
 }
 
-var rotateTransition = function() {
-    d3.transition()
-      .each('end', function() {
-        $('svg img').remove()
-
-        svg.append('foreignObject')
-          .data([thisStory])
-          .attr('class', 'city-arrow')
-          .attr('width', 125)
-          .attr('height', 100)
-          .attr('y', 60)
-          .attr('x', 300)
-          .append('xhtml:img')
-          
-        $('.city-arrow img').attr('src', 'img/' + nextStory.properties.img)
-        setImgY(nextStory)
-        $('.city-arrow').show()
-      })
-      .duration(750)
-      .tween("rotate", function() {
-        var r = d3.interpolate(proj.rotate(), [-nextStory.geometry.coordinates[0], -nextStory.geometry.coordinates[1]]);
-        return function(t) {
-          proj.rotate(r(t));
-          sky.rotate(r(t))
-          svg.selectAll("path").attr("d", path);
-          refresh()
-        }
-      })
-  geoRefresh()
-}
-  var offset = 157
-
-  var setImgY = function(d) {
-    var city = d.properties.city
-    var y;
-    switch(city) {
-      case "Beijing":
-        y = 217 - offset
-        break;
-      case "Beirut":
-        y = 217 - offset
-        break;
-      case "Helsinki":
-        y = 222 - offset
-        break;
-      case "Nairobi":
-        y = 220 - offset
-        break;
-      case "Lyon":
-        y = 207 - offset
-        break;
-      case "London":
-        y = 219 - offset
-        break;
-      case "Reykjavik":
-        y = 225 - offset
-        break;
-      case "Rio de Janeiro":
-        y = 234 - offset
-        break;
-      case "Cambridge, MA":
-        y = 236 - offset
-        break;
-      case "Miami Beach, FL":
-        y = 229 - offset
-        break;
-      case "Denver, CO":
-        y = 218 - offset
-        break;
-      case "Black Rock City, NV":
-        y = 237 - offset
-        break;
-      case "Phoenix, AZ":
-        y = 220 - offset
-        break;
-      case "Vandenberg AFB":
-        y = 236 - offset
-        break;
-      case "DMZ":
-        y = 236 - offset
-        break;
-      case "Silicon Valley":
-        y = 233 - offset
-        break;
-      default: 
-        y = 255 - offset
-        break;
-    }
-    $('.city-arrow').attr('y', y)
-  }
-
 if("geolocation" in navigator) {
-  navigator.geolocation.getCurrentPosition(success, error)
-
   function success(position) {
     latitude = position.coords.latitude
     longitude = position.coords.longitude
@@ -152,8 +24,10 @@ if("geolocation" in navigator) {
   }
 
   function error() {
-    console.log('geolocation error')
+    geoRefresh()
   }
+
+  navigator.geolocation.getCurrentPosition(success, error)
 }
 
 
@@ -165,25 +39,24 @@ d3.select(window)
 var margin = {top: 0, right: 0, bottom: 0, left: 0};
 
 var width = 630 - margin.left - margin.right,
-    height = 250 - margin.top - margin.bottom;
+    height = 900 - margin.top - margin.bottom;
 
 var proj = d3.geo.orthographic()
-    .translate([width / 1.45, height / 2.5])
+    .translate([width / 2, height / 3.5])
     .clipAngle(90)
     .rotate([104.9847, -39.7392, 0])
-    .scale(180);
+    .scale(220);
 
 var sky = d3.geo.orthographic()
-    .translate([width / 1.45, height / 2.5])
+    .translate([width / 2, height / 3.5])
     .clipAngle(90)
     .rotate([104.9847, -39.7392, 0])
-    .scale(270);
+    .scale(300);
 
 var path = d3.geo.path().projection(proj).pointRadius(2);
 
 var graticule = d3.geo.graticule()
   .step([36, 25])
-
 
 var swoosh = d3.svg.line()
       .x(function(d) { return d[0] })
@@ -206,8 +79,6 @@ queue()
 
 function ready(error, world, placesObj) {
   places = placesObj
-
-  setCookie()
 
   if(Cookies.get('location')){
     places.features.push(JSON.parse(Cookies.get('location')))
@@ -251,57 +122,166 @@ function ready(error, world, placesObj) {
       .attr("class", "sphere")
       .attr("d", path);
 
-  svg.append('foreignObject')
-    .data([thisStory])
-    .attr('class', 'city-arrow')
-    .attr('width', 125)
-    .attr('height', 100)
-    .attr('y', 60)
-    .attr('x', 300)
-    .append('xhtml:img')
-
   svg.append('text')
-    .attr('id', 'next-destination')
-    .attr('x', 15)
-    .attr('y', 40)
-    .text('NEXT DESTINATION:')
-
-  svg.append('foreignObject')
-    .attr('height', 30)
-    .attr('width', 300)
-    .attr('x', 15)
-    .attr('y', 220)
-    .append('xhtml:p')
-    .append('a')
-    .attr('href', '/')
-    .attr('id', 'global-tech')
-    .text('Global Tech /Table of Contents »')
-
-  svg.selectAll('.next-story')
-    .data([nextStory])
-    .enter().append('foreignObject')
-    .attr('width', 200)
-    .attr('height', 250)
-    .attr('x', 15)
-    .attr('y', 50)
-    .attr('class', 'next-story')
-    .append('xhtml:p')
-    .append('a')
-    .attr('href', function(d) {return d.properties.url})
-    .text(function(d) {
-      return d.properties.story
-    })
+    .text('TABLE OF CONTENTS')
+    .attr('id', 'table-contents-text')
+    .attr('y', 480)
 
   svg.append('rect')
     .attr('width', 630)
-    .attr('height', 250)
-    .style('stroke', 'black')
-    .style('fill', 'none')
-    .style('stroke-width', '.5em')
+    .attr('height', 10)
+    .attr('y', 490)
 
-  if(Cookies.get('seen')) {
-    createLinks()
+  svg.append('foreignObject')
+    .data(places.features)
+    .attr('class', 'city-arrow')
+    .attr('width', 125)
+    .attr('height', 100)
+    .attr('y', 205)
+    .attr('x', 185)
+    .append('xhtml:img')
+
+
+  var over = false
+  var base = 460
+
+  svg.append('g').attr('class', 'city-texts')
+    .selectAll('.city-text').data(places.features)
+    .enter().append('foreignObject')
+    .attr('x', function(d) {
+      var idx = places.features.indexOf(d)
+      if(idx < 6) {
+        return 0 
+      } else if(idx >= 6 && idx < 11) {
+        return 215
+      } else {
+        return 430        
+      }
+    })
+    .attr('y', function(d) {
+      var idx = places.features.indexOf(d)
+      if(idx === 6 || idx === 11) {
+        base = 460
+      }
+      if(idx > 0 && places.features[idx-1].properties.story.length > 23) {
+        var multiplier = places.features[idx-1].properties.story.length / 23
+        if(idx != 6 && idx !=11) {
+          var add = 7 * multiplier
+          base += add      
+        }
+      }
+      base += 60
+      return base
+    })
+    .attr('width', 190)
+    .attr('height', 200)
+    .append('xhtml:p')
+    .append("a")
+    .attr("href", function(d){return d.properties.url;}) 
+    .attr('class', 'city-text')
+    .text(function(d) { 
+      if(d.properties.story != "User Location"){
+        return d.properties.story 
+      }
+    })
+    .on('mouseover', function(d) {
+      $(this).css('color', 'lightgrey')
+      over = true
+      var coordinates = d.geometry.coordinates
+      d3.transition()
+        .each('end', function() {
+          if(over === true) {
+              $('svg img').remove()
+
+              svg.append('foreignObject')
+                .data(places.features)
+                .attr('class', 'city-arrow')
+                .attr('width', 125)
+                .attr('height', 100)
+                .attr('y', 205)
+                .attr('x', 185)
+                .append('xhtml:img')
+            $('.city-arrow img').attr('src', 'img/' + d.properties.img)
+            setImgY(d)
+            $('.city-arrow').show()
+          }
+        })
+        .duration(750)
+        .tween("rotate", function() {
+        var r = d3.interpolate(proj.rotate(), [-coordinates[0], -coordinates[1]]);
+        return function(t) {
+          proj.rotate(r(t));
+          sky.rotate(r(t))
+          svg.selectAll("path").attr("d", path);
+          refresh()
+        };
+      })
+    })
+    .on('mouseout', function() {
+      $(this).css('color', 'black')
+      over = false
+      $('.city-arrow').hide()
+    })
+
+  var setImgY = function(d) {
+    var city = d.properties.city
+    var y;
+    switch(city) {
+      case "Beijing":
+        y = 217
+        break;
+      case "Beirut":
+        y = 217
+        break;
+      case "Helsinki":
+        y = 222
+        break;
+      case "Nairobi":
+        y = 220
+        break;
+      case "Lyon":
+        y = 207
+        break;
+      case "London":
+        y = 219
+        break;
+      case "Reykjavik":
+        y = 225
+        break;
+      case "Rio de Janeiro":
+        y = 234
+        break;
+      case "Cambridge, MA":
+        y = 236
+        break;
+      case "Miami Beach, FL":
+        y = 229
+        break;
+      case "Denver, CO":
+        y = 218;
+        break;
+      case "Black Rock City, NV":
+        y = 237;
+        break;
+      case "Phoenix, AZ":
+        y = 220;
+        break;
+      case "Vandenberg AFB":
+        y = 236
+        break;
+      case "DMZ":
+        y = 236
+        break;
+      case "Silicon Valley":
+        y = 233
+        break;
+      default: 
+        y = 255
+        break;
+    }
+    $('.city-arrow').attr('y', y)
   }
+
 
 
   // build geoJSON features from links array
@@ -323,7 +303,8 @@ function ready(error, world, placesObj) {
     .attr("d", function(d) { return swoosh(flying_arc(d)) })
 
   positionLabels()
-  refresh();
+  geoRefresh()
+  
 }
 
 var createLinks = function() {
@@ -352,6 +333,7 @@ var geoRefresh = function() {
   arcLines = []
   
   createLinks()
+
 
   links.forEach(function(e,i,a) {
     var feature =   { "type": "Feature", "geometry": { "type": "LineString", "coordinates": [e.source,e.target] }}
@@ -470,10 +452,11 @@ function fade_at_edge(d) {
   var start_dist = 1.57 - arc.distance({source: start, target: centerPos}),
       end_dist = 1.57 - arc.distance({source: end, target: centerPos});
     
-  var fade = d3.scale.linear().domain([-.1,0]).range([0,.1]) 
+  var fade = d3.scale.linear().domain([-.7,0]).range([0,.7]) 
   var dist = start_dist < end_dist ? start_dist : end_dist; 
 
   return fade(dist)
+  // return 1
 }
 
 function location_along_arc(start, end, loc) {
@@ -487,8 +470,6 @@ function mousedown() {
   m0 = [d3.event.pageX, d3.event.pageY];
   o0 = proj.rotate();
   d3.event.preventDefault();
-  $('.city-arrow').hide()
-  
 }
 function mousemove() {
   if (m0) {
@@ -510,6 +491,5 @@ function mouseup() {
     m0 = null;
   }
 }
-
 
 
