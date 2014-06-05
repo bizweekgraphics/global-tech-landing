@@ -162,7 +162,7 @@ function ready(error, world, placesObj) {
       return base
     })
     .attr('width', 200)
-    .attr('height', 100)
+    .attr('height', 200)
     .append('xhtml:p')
     .attr('class', 'city-text')
     .text(function(d) { 
