@@ -191,6 +191,16 @@ function ready(error, world, placesObj) {
       d3.transition()
         .each('end', function() {
           if(over === true) {
+              $('svg img').remove()
+
+              svg.append('foreignObject')
+                .data(places.features)
+                .attr('class', 'city-arrow')
+                .attr('width', 125)
+                .attr('height', 100)
+                .attr('y', 205)
+                .attr('x', 185)
+                .append('xhtml:img')
             $('.city-arrow img').attr('src', 'img/' + d.properties.img)
             setImgY(d)
             $('.city-arrow').show()
