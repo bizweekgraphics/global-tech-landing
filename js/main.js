@@ -163,8 +163,8 @@ function ready(error, world, placesObj) {
       if(idx === 6 || idx === 11) {
         base = 460
       }
-      if(idx > 0 && places.features[idx-1].properties.story.length > 21) {
-        var multiplier = places.features[idx-1].properties.story.length / 21
+      if(idx > 0 && places.features[idx-1].properties.story.length > 23) {
+        var multiplier = places.features[idx-1].properties.story.length / 23
         if(idx != 6 && idx !=11) {
           var add = 7 * multiplier
           base += add      
