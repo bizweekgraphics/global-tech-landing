@@ -466,9 +466,10 @@ function mousedown() {
   m0 = [d3.event.pageX, d3.event.pageY];
   o0 = proj.rotate();
   d3.event.preventDefault();
+  $('.city-arrow').hide()
+  
 }
 function mousemove() {
-  $('.city-arrow').hide()
   if (m0) {
     var m1 = [d3.event.pageX, d3.event.pageY]
       , o1 = [o0[0] + (m1[0] - m0[0]) / 6, o0[1] + (m0[1] - m1[1]) / 6];
