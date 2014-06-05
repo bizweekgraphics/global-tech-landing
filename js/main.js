@@ -24,7 +24,7 @@ if("geolocation" in navigator) {
   }
 
   function error() {
-    console.log('geolocation error')
+    geoRefresh()
   }
 
   navigator.geolocation.getCurrentPosition(success, error)
@@ -293,7 +293,8 @@ function ready(error, world, placesObj) {
     .attr("d", function(d) { return swoosh(flying_arc(d)) })
 
   positionLabels()
-  refresh();
+  geoRefresh()
+  
 }
 
 var createLinks = function() {
@@ -441,7 +442,7 @@ function fade_at_edge(d) {
   var start_dist = 1.57 - arc.distance({source: start, target: centerPos}),
       end_dist = 1.57 - arc.distance({source: end, target: centerPos});
     
-  var fade = d3.scale.linear().domain([-.5,0]).range([0,.7]) 
+  var fade = d3.scale.linear().domain([-.7,0]).range([0,.7]) 
   var dist = start_dist < end_dist ? start_dist : end_dist; 
 
   return fade(dist)
