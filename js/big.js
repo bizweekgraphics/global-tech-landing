@@ -1,17 +1,144 @@
+var urlArray = ["http://www.businessweek.com/articles/2014-06-04/chinas-xiaomi-the-worlds-fastest-growing-phone-maker", "http://www.businessweek.com/articles/2014-06-05/clash-of-clans-maker-supercell-succeeds-nokia-as-finlands-tech-power", "http://www.businessweek.com/articles/2014-06-05/tech-savvy-hezbollah-goes-multiplatform-to-spread-its-message", "http://www.businessweek.com/articles/2014-06-05/safaricoms-m-pesa-turns-kenya-into-a-mobile-payment-paradise", "http://www.businessweek.com/articles/2014-06-05/babolat-tennis-rackets-sensors-measure-swing-speed-strength", "http://www.businessweek.com/articles/2014-06-05/londons-massive-subway-tunneling-machines-build-as-they-destroy", "http://www.businessweek.com/articles/2014-06-05/eve-onlines-nerd-monument-vandalized-over-in-game-rivalry", "http://www.businessweek.com/articles/2014-06-05/how-major-league-baseball-helps-espn-stream-world-cup-soccer", "http://www.businessweek.com/articles/2014-06-05/transatomic-powers-safer-reactor-eats-nuclear-waste", "http://www.businessweek.com/articles/2014-06-05/infiltrate-conference-draws-hackers-spies-to-miami-beach", "http://www.businessweek.com/articles/2014-06-05/is-chris-dancy-the-most-quantified-self-in-america", "http://www.businessweek.com/articles/2014-06-05/founded-by-army-vet-tankchair-makes-all-terrain-wheelchairs", "http://www.businessweek.com/articles/2014-06-05/digitalglobes-new-satellite-can-see-everything-from-383-miles-away", "http://www.businessweek.com/articles/2014-06-05/how-to-build-a-new-gadget-in-seven-steps", "http://www.businessweek.com/articles/2014-06-05/the-no-tech-tactics-of-north-koreas-target-zero-park-sang-hak", "http://www.businessweek.com/articles/2014-06-05/tech-immigrants-a-map-of-silicon-valleys-imported-talent"]
+
 var thisUrl = document.referrer
 
+if(!thisUrl) {
+  var thisUrl = _.shuffle(urlArray)[0]
+}
+
+var thisStory
+
+var addCookie = function(story) {
+  if(Cookies.get('seen')) {
+    var cookies = Cookies.get('seen')
+    var cookieArray = cookies.split('|')
+    var lastCookie = cookieArray[cookieArray.length - 1]
+    if(story != lastCookie) {
+      Cookies.set('seen', cookies + '|' + story)  
+    }
+  } else {
+    Cookies.set('seen', story)
+  }
+  rotateTransition()
+  // geoRefresh()
+}
+
 var setCookie = function() {
-  var thisStory = _.find(places.features, function(feature) {
+  thisStory = _.find(places.features, function(feature) {
     return feature.properties.url === thisUrl
   })
-  var cookie = JSON.stringify(thisStory)
+  thisStoryIdx = places.features.indexOf(thisStory)
+  nextStory = places.features[thisStoryIdx + 1]
+
+  // var cookie = JSON.stringify(thisStory)
+  var cookie = thisUrl
   addCookie(cookie)
 } 
 
+var cookiesToJson = function() {
+  var cookieArray = []
+  var cookies = Cookies.get('seen').split('|')
+  cookies.forEach(function(cookie) {
+    var obj = _.find(places.features, function(feature) {
+      return feature.properties.url === cookie
+    })
+    cookieArray.push(obj)
+  })
+  return cookieArray
+}
+
+var rotateTransition = function() {
+    d3.transition()
+      .each('end', function() {
+        $('svg img').remove()
+
+        svg.append('foreignObject')
+          .data([thisStory])
+          .attr('class', 'city-arrow')
+          .attr('width', 125)
+          .attr('height', 100)
+          .attr('y', 60)
+          .attr('x', 515)
+          .append('xhtml:img')
+          
+        $('.city-arrow img').attr('src', 'img/' + nextStory.properties.img)
+        setImgY(nextStory)
+        $('.city-arrow').show()
+      })
+      .duration(750)
+      .tween("rotate", function() {
+        var r = d3.interpolate(proj.rotate(), [-nextStory.geometry.coordinates[0], -nextStory.geometry.coordinates[1]]);
+        return function(t) {
+          proj.rotate(r(t));
+          sky.rotate(r(t))
+          svg.selectAll("path").attr("d", path);
+          refresh()
+        }
+      })
+  geoRefresh()
+}
+  var offset = 144
+
+  var setImgY = function(d) {
+    var city = d.properties.city
+    var y;
+    switch(city) {
+      case "Beijing":
+        y = 217 - offset
+        break;
+      case "Beirut":
+        y = 217 - offset
+        break;
+      case "Helsinki":
+        y = 222 - offset
+        break;
+      case "Nairobi":
+        y = 220 - offset
+        break;
+      case "Lyon":
+        y = 207 - offset
+        break;
+      case "London":
+        y = 219 - offset
+        break;
+      case "Reykjavik":
+        y = 225 - offset
+        break;
+      case "Rio de Janeiro":
+        y = 234 - offset
+        break;
+      case "Cambridge, MA":
+        y = 236 - offset
+        break;
+      case "Miami Beach, FL":
+        y = 229 - offset
+        break;
+      case "Denver, CO":
+        y = 218 - offset
+        break;
+      case "Black Rock City, NV":
+        y = 237 - offset
+        break;
+      case "Phoenix, AZ":
+        y = 220 - offset
+        break;
+      case "Vandenberg AFB":
+        y = 236 - offset
+        break;
+      case "DMZ":
+        y = 236 - offset
+        break;
+      case "Silicon Valley":
+        y = 233 - offset
+        break;
+      default: 
+        y = 255 - offset
+        break;
+    }
+    $('.city-arrow').attr('y', y)
+  }
 
 if("geolocation" in navigator) {
-  navigator.geolocation.getCurrentPosition(success, error)
-
   function success(position) {
     latitude = position.coords.latitude
     longitude = position.coords.longitude
@@ -23,8 +150,10 @@ if("geolocation" in navigator) {
   }
 
   function error() {
-    console.log('geolocation error')
+    geoRefresh()
   }
+
+  navigator.geolocation.getCurrentPosition(success, error)
 }
 
 
@@ -78,6 +207,8 @@ queue()
 function ready(error, world, placesObj) {
   places = placesObj
 
+  setCookie()
+
   if(Cookies.get('location')){
     places.features.push(JSON.parse(Cookies.get('location')))
   }
@@ -120,38 +251,43 @@ function ready(error, world, placesObj) {
       .attr("class", "sphere")
       .attr("d", path);
 
-  svg.append('rect')
-    .attr('display', 'none')
+  svg.append('foreignObject')
+    .data([thisStory])
     .attr('class', 'city-arrow')
-    .attr('width', 50)
-    .attr('height', 10)
-    .attr('y', 223)
-    .attr('x', 260)
+    .attr('width', 125)
+    .attr('height', 100)
+    .attr('y', 60)
+    .attr('x', 300)
+    .append('xhtml:img')
 
   svg.append('text')
     .attr('id', 'next-destination')
-    .attr('x', 40)
+    .attr('x', 15)
     .attr('y', 40)
     .text('NEXT DESTINATION:')
 
   svg.append('foreignObject')
     .attr('height', 30)
     .attr('width', 300)
-    .attr('x', 40)
+    .attr('x', 15)
     .attr('y', 220)
     .append('xhtml:p')
+    .append('a')
+    .attr('href', '/')
     .attr('id', 'global-tech')
     .text('Global Tech /Table of Contents »')
 
   svg.selectAll('.next-story')
-    .data([places.features[9]])
+    .data([nextStory])
     .enter().append('foreignObject')
-    .attr('width', 350)
+    .attr('width', 200)
     .attr('height', 250)
-    .attr('x', 40)
+    .attr('x', 15)
     .attr('y', 50)
     .attr('class', 'next-story')
     .append('xhtml:p')
+    .append('a')
+    .attr('href', function(d) {return d.properties.url})
     .text(function(d) {
       return d.properties.story
     })
@@ -162,17 +298,6 @@ function ready(error, world, placesObj) {
     .style('stroke', 'black')
     .style('fill', 'none')
     .style('stroke-width', '.5em')
-
-
-
-  var addCookie = function(story) {
-    if(Cookies.get('seen')) {
-      var cookies = Cookies.get('seen')
-      Cookies.set('seen', cookies + '|' + story)  
-    } else {
-      Cookies.set('seen', story)
-    }
-  }
 
   if(Cookies.get('seen')) {
     createLinks()
@@ -203,14 +328,15 @@ function ready(error, world, placesObj) {
 
 var createLinks = function() {
   if(Cookies.get('location')) {
-    var seenArray = (Cookies.get('location') + '|' + Cookies.get('seen')).split('|')
+    var locationArray = [JSON.parse(Cookies.get('location'))]
+    var seenArray = locationArray.concat(cookiesToJson())
   } else {
-    var seenArray = Cookies.get('seen').split('|')
+    var seenArray = cookiesToJson()
   }
   seenArray.forEach(function(feature, index) {
     if(index < (seenArray.length - 1) && Cookies.get('seen')){
-      var sourceObj = JSON.parse(feature)
-      var targetObj = JSON.parse(seenArray[index + 1])
+      var sourceObj = feature
+      var targetObj = seenArray[index + 1]
       if(JSON.stringify(sourceObj) != JSON.stringify(targetObj)){
         links.push({
           source: sourceObj.geometry.coordinates,  
@@ -361,6 +487,8 @@ function mousedown() {
   m0 = [d3.event.pageX, d3.event.pageY];
   o0 = proj.rotate();
   d3.event.preventDefault();
+  $('.city-arrow').hide()
+  
 }
 function mousemove() {
   if (m0) {

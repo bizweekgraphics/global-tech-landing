@@ -139,8 +139,6 @@ var rotateTransition = function() {
   }
 
 if("geolocation" in navigator) {
-  navigator.geolocation.getCurrentPosition(success, error)
-
   function success(position) {
     latitude = position.coords.latitude
     longitude = position.coords.longitude
@@ -152,8 +150,10 @@ if("geolocation" in navigator) {
   }
 
   function error() {
-    console.log('geolocation error')
+    geoRefresh()
   }
+
+  navigator.geolocation.getCurrentPosition(success, error)
 }
 
 

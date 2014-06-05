@@ -332,13 +332,27 @@ var geoRefresh = function() {
   links = []
   arcLines = []
   
-  createLinks()
+  if(Cookies.get('seen')) {
+    createLinks()
 
 
-  links.forEach(function(e,i,a) {
-    var feature =   { "type": "Feature", "geometry": { "type": "LineString", "coordinates": [e.source,e.target] }}
-    arcLines.push(feature)
-  })
+    links.forEach(function(e,i,a) {
+      var feature =   { "type": "Feature", "geometry": { "type": "LineString", "coordinates": [e.source,e.target] }}
+      arcLines.push(feature)
+    })
+
+    d3.select('.arcs')
+      .selectAll('.arc').data(arcLines)
+      .enter().append('path')
+      .attr('class', 'arc')
+      .attr('d', path)
+
+    d3.select('.flyers')
+      .selectAll('.flyer').data(links)
+      .enter().append('path')
+      .attr('class', 'flyer')
+      .attr('d', function(d) { return swoosh(flying_arc(d))})
+  }
 
   d3.select('.points')
   .selectAll(".point").data(places.features)
@@ -358,17 +372,7 @@ var geoRefresh = function() {
     .attr("class", "label")
     .text(function(d) { return d.properties.city })
 
-  d3.select('.arcs')
-    .selectAll('.arc').data(arcLines)
-    .enter().append('path')
-    .attr('class', 'arc')
-    .attr('d', path)
 
-  d3.select('.flyers')
-    .selectAll('.flyer').data(links)
-    .enter().append('path')
-    .attr('class', 'flyer')
-    .attr('d', function(d) { return swoosh(flying_arc(d))})
 
   refresh()
 }
