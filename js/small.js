@@ -13,11 +13,13 @@ var addCookie = function(story) {
     var cookies = Cookies.get('seen')
     var cookieArray = cookies.split('|')
     var lastCookie = cookieArray[cookieArray.length - 1]
-    if(story != lastCookie) {
+    if(story && story != lastCookie) {
       Cookies.set('seen', cookies + '|' + story)  
     }
   } else {
-    Cookies.set('seen', story)
+    if(story) {
+      Cookies.set('seen', story)
+    }
   }
   rotateTransition()
   // geoRefresh()
