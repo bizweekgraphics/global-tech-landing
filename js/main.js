@@ -206,7 +206,7 @@ function ready(error, world, placesObj) {
       })
     })
     .on('mouseout', function() {
-      $(this).css('opacity', 1)
+      $(this).css('color', 'black')
       over = false
       $('.city-arrow').hide()
     })
