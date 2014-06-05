@@ -13,11 +13,11 @@ var addCookie = function(story) {
     var cookies = Cookies.get('seen')
     var cookieArray = cookies.split('|')
     var lastCookie = cookieArray[cookieArray.length - 1]
-    if(story && story != lastCookie) {
+    if(urlArray.indexOf(story) != -1 && story != lastCookie) {
       Cookies.set('seen', cookies + '|' + story)  
     }
   } else {
-    if(story) {
+    if(story && urlArray.indexOf(story) != -1) {
       Cookies.set('seen', story)
     }
   }

@@ -13,11 +13,11 @@ var addCookie = function(story) {
     var cookies = Cookies.get('seen')
     var cookieArray = cookies.split('|')
     var lastCookie = cookieArray[cookieArray.length - 1]
-    if(urlArray.indexOf(story) != -1 && story != lastCookie) {
+    if(story && story != lastCookie) {
       Cookies.set('seen', cookies + '|' + story)  
     }
   } else {
-    if(story && urlArray.indexOf(story) != -1) {
+    if(story) {
       Cookies.set('seen', story)
     }
   }
@@ -57,24 +57,24 @@ var rotateTransition = function() {
     d3.transition()
       .each('end', function() {
         $('svg img').remove()
+
         $('.next-story').remove()
 
-          svg.selectAll('.next-story')
+        svg.selectAll('.next-story')
           .data([nextStory])
           .enter().append('foreignObject')
-          .attr('width', 220)
+          .attr('width', 400)
           .attr('height', 250)
-          .attr('x', 15)
+          .attr('x', 22)
           .attr('y', 50)
           .attr('class', 'next-story')
           .append('xhtml:p')
-          .attr('width', 220)
-          .on('click', function(d) {
-            window.top.location.href = d.properties.url
-          })
+          .append('a')
+          .attr('href', function(d) {return d.properties.url})
           .text(function(d) {
             return d.properties.story
           })
+
 
         svg.append('foreignObject')
           .data([thisStory])
@@ -82,7 +82,7 @@ var rotateTransition = function() {
           .attr('width', 125)
           .attr('height', 100)
           .attr('y', 60)
-          .attr('x', 300)
+          .attr('x', 515)
           .append('xhtml:img')
           
         $('.city-arrow img').attr('src', 'img/' + nextStory.properties.img)
@@ -101,7 +101,7 @@ var rotateTransition = function() {
       })
   geoRefresh()
 }
-  var offset = 157
+  var offset = 144
 
   var setImgY = function(d) {
     var city = d.properties.city
@@ -188,17 +188,17 @@ d3.select(window)
 
 var margin = {top: 0, right: 0, bottom: 0, left: 0};
 
-var width = 630 - margin.left - margin.right,
+var width = 970 - margin.left - margin.right,
     height = 250 - margin.top - margin.bottom;
 
 var proj = d3.geo.orthographic()
-    .translate([width / 1.45, height / 2.5])
+    .translate([width / 1.5, height / 2.2])
     .clipAngle(90)
     .rotate([104.9847, -39.7392, 0])
     .scale(180);
 
 var sky = d3.geo.orthographic()
-    .translate([width / 1.45, height / 2.5])
+    .translate([width / 1.5, height / 2.2])
     .clipAngle(90)
     .rotate([104.9847, -39.7392, 0])
     .scale(270);
@@ -286,41 +286,38 @@ function ready(error, world, placesObj) {
 
   svg.append('text')
     .attr('id', 'next-destination')
-    .attr('x', 15)
+    .attr('x', 22)
     .attr('y', 40)
     .text('NEXT DESTINATION:')
 
   svg.append('foreignObject')
     .attr('height', 30)
     .attr('width', 300)
-    .attr('x', 15)
+    .attr('x', 22)
     .attr('y', 220)
     .append('xhtml:p')
-    .on('click', function() {
-      window.top.location.href = 'http://www.businessweek.com/features/the-global-technology-issue-way-beyond-silicon-valley/'
-    })
+    .append('a')
+    .attr('href', 'http://www.businessweek.com/features/the-global-technology-issue-way-beyond-silicon-valley')
     .attr('id', 'global-tech')
     .text('*Discover More #GlobalTech Content*')
 
   svg.selectAll('.next-story')
     .data([nextStory])
     .enter().append('foreignObject')
-    .attr('width', 220)
+    .attr('width', 400)
     .attr('height', 250)
-    .attr('x', 15)
+    .attr('x', 22)
     .attr('y', 50)
     .attr('class', 'next-story')
     .append('xhtml:p')
-    .attr('width', 220)
-    .on('click', function(d) {
-      window.top.location.href = d.properties.url
-    })
+    .append('a')
+    .attr('href', function(d) {return d.properties.url})
     .text(function(d) {
       return d.properties.story
     })
 
   svg.append('rect')
-    .attr('width', 630)
+    .attr('width', 970)
     .attr('height', 250)
     .style('stroke', 'black')
     .style('fill', 'none')
