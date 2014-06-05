@@ -88,8 +88,17 @@
   font-family: 'BWHaasRegular';
 }
 
+#global-tech:hover {
+  opacity: .5;
+}
+
 .next-story:hover {
   opacity: .5;
+}
+
+svg a {
+  color: black;
+  text-decoration: none;
 }
 
 .arcs {

@@ -255,6 +255,8 @@ function ready(error, world, placesObj) {
     .attr('x', 15)
     .attr('y', 220)
     .append('xhtml:p')
+    .append('a')
+    .attr('href', '/')
     .attr('id', 'global-tech')
     .text('Global Tech /Table of Contents »')
 
@@ -267,6 +269,8 @@ function ready(error, world, placesObj) {
     .attr('y', 50)
     .attr('class', 'next-story')
     .append('xhtml:p')
+    .append('a')
+    .attr('href', function(d) {return d.properties.url})
     .text(function(d) {
       return d.properties.story
     })
