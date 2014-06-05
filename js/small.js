@@ -1,11 +1,15 @@
 // var thisUrl = document.referrer
-var thisUrl = 'http://www.businessweek.com/articles/2014-06-05/infiltrate-conference-draws-hackers-spies-to-miami-beach'
+var thisUrl = 'http://www.businessweek.com/articles/2014-06-05/safaricoms-m-pesa-turns-kenya-into-a-mobile-payment-paradise'
 var thisStory
 
 var addCookie = function(story) {
   if(Cookies.get('seen')) {
     var cookies = Cookies.get('seen')
-    Cookies.set('seen', cookies + '|' + story)  
+    var cookieArray = cookies.split('|')
+    var lastCookie = cookieArray[cookieArray.length - 1]
+    if(story != lastCookie) {
+      Cookies.set('seen', cookies + '|' + story)  
+    }
   } else {
     Cookies.set('seen', story)
   }
@@ -20,9 +24,22 @@ var setCookie = function() {
   thisStoryIdx = places.features.indexOf(thisStory)
   nextStory = places.features[thisStoryIdx + 1]
 
-  var cookie = JSON.stringify(thisStory)
+  // var cookie = JSON.stringify(thisStory)
+  var cookie = thisUrl
   addCookie(cookie)
 } 
+
+var cookiesToJson = function() {
+  var cookieArray = []
+  var cookies = Cookies.get('seen').split('|')
+  cookies.forEach(function(cookie) {
+    var obj = _.find(places.features, function(feature) {
+      return feature.properties.url === cookie
+    })
+    cookieArray.push(obj)
+  })
+  return cookieArray
+}
 
 var rotateTransition = function() {
     d3.transition()
@@ -290,14 +307,15 @@ function ready(error, world, placesObj) {
 
 var createLinks = function() {
   if(Cookies.get('location')) {
-    var seenArray = (Cookies.get('location') + '|' + Cookies.get('seen')).split('|')
+    var locationArray = [JSON.parse(Cookies.get('location'))]
+    var seenArray = locationArray.concat(cookiesToJson())
   } else {
-    var seenArray = Cookies.get('seen').split('|')
+    var seenArray = cookiesToJson()
   }
   seenArray.forEach(function(feature, index) {
     if(index < (seenArray.length - 1) && Cookies.get('seen')){
-      var sourceObj = JSON.parse(feature)
-      var targetObj = JSON.parse(seenArray[index + 1])
+      var sourceObj = feature
+      var targetObj = seenArray[index + 1]
       if(JSON.stringify(sourceObj) != JSON.stringify(targetObj)){
         links.push({
           source: sourceObj.geometry.coordinates,  
