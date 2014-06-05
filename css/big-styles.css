@@ -107,6 +107,10 @@ svg a:hover {
   cursor: pointer;
 }
 
+svg p {
+  margin: 0;
+}
+
 svg a {
   color: black;
   text-decoration: none;

@@ -39,6 +39,9 @@ body {
   padding: 0;
 }
 
+svg p {
+  margin: 0;
+}
 
 .land {
   fill: white;
