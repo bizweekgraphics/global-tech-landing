@@ -126,14 +126,18 @@ function ready(error, world, placesObj) {
     .attr("class", "label")
     .style('font-size', '1.75em')
     .on('click', function(d) {
-      window.top.location.href = d.properties.url
+      if(d.properties.city != "You") {
+        window.top.location.href = d.properties.url
+      }
     })
     .on('mouseover', function(d) {
-      d3.select(this).style('opacity', .5).style('cursor',  'pointer')
-      var story = _.find($('.city-texts a'), function(text) {
-        return $(text).attr('href') === d.properties.url
-      })
-      $(story).css('color', 'lightgrey')
+      if(d.properties.city != "You") {
+        d3.select(this).style('opacity', .5).style('cursor',  'pointer')
+        var story = _.find($('.city-texts a'), function(text) {
+          return $(text).attr('href') === d.properties.url
+        })
+        $(story).css('color', 'lightgrey')
+      }
     })
     .on('mouseout', function(d) {
       d3.select(this).style('opacity', 1)
