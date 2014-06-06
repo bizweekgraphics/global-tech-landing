@@ -125,6 +125,7 @@ function ready(error, world, placesObj) {
     .enter().append("text")
     .attr("class", "label")
     .style('font-size', '1.75em')
+    .style('font-weight', 'bold')
     .on('click', function(d) {
       if(d.properties.city != "You") {
         window.top.location.href = d.properties.url
