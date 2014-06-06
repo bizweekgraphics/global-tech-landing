@@ -182,9 +182,9 @@ function ready(error, world, placesObj) {
     .enter().append('foreignObject')
     .attr('x', function(d) {
       var idx = places.features.indexOf(d)
-      if(idx < 5) {
+      if(idx < 6) {
         return 0 
-      } else if(idx >= 5 && idx < 11) {
+      } else if(idx >= 6 && idx < 11) {
         return 215
       } else {
         return 430        
@@ -192,7 +192,7 @@ function ready(error, world, placesObj) {
     })
     .attr('y', function(d) {
       var idx = places.features.indexOf(d)
-      if(idx === 5 || idx === 11) {
+      if(idx === 6 || idx === 11) {
         base = 460
       }
       if(idx > 0 && places.features[idx-1].properties.story.length > 23) {
@@ -204,8 +204,8 @@ function ready(error, world, placesObj) {
       }
       base += 60
 
-      if(idx === 6) {
-        return 565
+      if(idx === 5) {
+        return 860
       } else {
         return base
       }
