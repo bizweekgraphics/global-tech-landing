@@ -125,6 +125,7 @@ function ready(error, world, placesObj) {
     .enter().append("text")
     .attr("class", "label")
     .style('font-size', '1.75em')
+    .style('font-weight', 'bold')
     .on('click', function(d) {
       if(d.properties.city != "You") {
         window.top.location.href = d.properties.url
@@ -197,13 +198,18 @@ function ready(error, world, placesObj) {
       }
       if(idx > 0 && places.features[idx-1].properties.story.length > 23) {
         var multiplier = places.features[idx-1].properties.story.length / 23
-        if(idx != 6 && idx !=11) {
-          var add = 7 * multiplier
+        if(idx != 5 && idx !=11 && idx !=6) {
+          var add = 2.5 * multiplier
           base += add      
-        }
+        } 
       }
       base += 60
-      return base
+
+      if(idx === 5) {
+        return 860
+      } else {
+        return base
+      }
     })
     .attr('width', 190)
     .attr('height', 200)

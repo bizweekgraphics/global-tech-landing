@@ -65,6 +65,9 @@ body {
     opacity: 1;
 }
 
+svg a:visited {
+  color: black;
+}
 
 
 .noclicks { pointer-events:none; }
