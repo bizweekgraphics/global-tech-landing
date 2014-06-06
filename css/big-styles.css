@@ -61,10 +61,11 @@ body {
 }
 
 .labels {
-    font: 8px sans-serif;
     fill: black;
     opacity: 1;
 }
+
+
 
 .noclicks { pointer-events:none; }
 

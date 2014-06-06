@@ -115,6 +115,16 @@ function ready(error, world, placesObj) {
     .selectAll(".label").data(places.features)
     .enter().append("text")
     .attr("class", "label")
+    .style('font-size', '1.75em')
+    .on('click', function(d) {
+      window.top.location.href = d.properties.url
+    })
+    .on('mouseover', function(d) {
+      d3.select(this).style('opacity', .5).style('cursor',  'pointer')
+    })
+    .on('mouseout', function(d) {
+      d3.select(this).style('opacity', 1)
+    })
     .text(function(d) { return d.properties.city })
 
   svg.append("path")
