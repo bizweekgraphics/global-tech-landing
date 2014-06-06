@@ -16,10 +16,19 @@ if("geolocation" in navigator) {
   function success(position) {
     latitude = position.coords.latitude
     longitude = position.coords.longitude
-    var cookie = JSON.stringify({ "type": "Feature", "properties": {"city": "You", "story": "User Location"}, "geometry": { "type": "Point", "coordinates": [ longitude, latitude ] } })
-    
-    Cookies.set('location', cookie)
-    places.features.push(JSON.parse(cookie))
+    if(!Cookies.get('location')) {
+      var cookie = JSON.stringify({ "type": "Feature", "properties": {"city": "You", "story": "User Location"}, "geometry": { "type": "Point", "coordinates": [ longitude, latitude ] } })
+      
+      Cookies.set('location', cookie)
+      places.features.push(JSON.parse(cookie))
+    } else {
+      var oldLocation = _.find(places.features, function(place) {
+        return place.properties.city === "You"
+      })
+      var oldIdx = places.features.indexOf(oldLocation)
+      places.features[oldIdx].geometry.coordinates = [longitude, latitude]
+    }
+
     geoRefresh()
   }
 
@@ -121,9 +130,17 @@ function ready(error, world, placesObj) {
     })
     .on('mouseover', function(d) {
       d3.select(this).style('opacity', .5).style('cursor',  'pointer')
+      var story = _.find($('.city-texts a'), function(text) {
+        return $(text).attr('href') === d.properties.url
+      })
+      $(story).css('color', 'lightgrey')
     })
     .on('mouseout', function(d) {
       d3.select(this).style('opacity', 1)
+      var story = _.find($('.city-texts a'), function(text) {
+        return $(text).attr('href') === d.properties.url
+      })
+      $(story).css('color', 'black')
     })
     .text(function(d) { return d.properties.city })
 
@@ -133,9 +150,10 @@ function ready(error, world, placesObj) {
       .attr("d", path);
 
   svg.append('text')
-    .text('TABLE OF CONTENTS')
+    .text('#GlobalTech')
     .attr('id', 'table-contents-text')
     .attr('y', 480)
+    .attr('x', 510)
 
   svg.append('rect')
     .attr('width', 630)
@@ -379,6 +397,7 @@ var geoRefresh = function() {
     .selectAll('.label')
     .data(places.features)
     .enter().append("text")
+    .style('font-size', '1.75em' )
     .attr("class", "label")
     .text(function(d) { return d.properties.city })
 
@@ -405,11 +424,29 @@ function positionLabels() {
         x = loc[0],
         y = loc[1];
       var offset = x < width/2 ? -5 : 5;
-      if(d.properties.city === "Parker, CO" || d.properties.city === "Parker, AZ") {
-        return "translate(" + (x+offset) + "," + (y+5) + ")"
-      } else {
-        return "translate(" + (x+offset) + "," + (y-2) + ")"
+      var city = d.properties.city 
+      switch(city) {
+      case "You":
+        var shift = 5
+        break;
+      case "Phoenix, AZ":
+        var shift = 7
+        break;
+      case "Vandenberg AFB":
+        var shift = 3
+        break;
+      case "Silicon Valley":
+        var shift = 1
+        break;
+      case "Denver, CO":
+        var shift = 12
+        break;
+      default: 
+        var shift = -2
+        break;
       }
+
+      return "translate(" + (x+offset) + "," + (y+shift) + ")"
     })
     .style("display",function(d) {
       var d = arc.distance({source: d.geometry.coordinates, target: centerPos});
