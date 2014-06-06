@@ -1,0 +1,126 @@
+@font-face {
+  font-family: 'BloombergLBold';
+    src: url("http://www.businessweek.com/assets/type/bloombergl_heavy.eot?#iefix") format('embedded-opentype'),
+       url('http://www.businessweek.com/assets/type/bloombergl_heavy.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+@font-face {
+  font-family:'BWHaasHead';
+  src: url('http://www.businessweek.com/assets/type/hinted/haas/bwhaasgroteskhead-95black.eot?#iefix') format('eot'),
+     url('http://www.businessweek.com/assets/type/hinted/haas/bwhaasgroteskhead-95black.woff') format('woff'),
+     url('http://www.businessweek.com/assets/type/haas/bwhaasgroteskhead-95black.ttf') format('truetype');
+
+  font-style: normal;
+  font-weight: 700;
+  font-stretch: normal;
+}
+@font-face {
+  font-family:'BWHaasHead75Bold';
+  src: url('http://www.businessweek.com/assets/type/hinted/haas75/bwhaasgroteskhead-75bold.eot?#iefix') format('eot'),
+     url('http://www.businessweek.com/assets/type/hinted/haas75/bwhaasgroteskhead-75bold.woff') format('woff'),
+     url('http://www.businessweek.com/assets/type/haas75/bwhaasgrotesktext-75bold.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 700;
+  font-stretch: normal;
+}
+@font-face {
+  font-family:'BWHaasRegular';
+  src: url('http://www.businessweek.com/assets/web_fonts/bwhaasgroteskhead-65medium.eot?#iefix') format('eot'),
+     url('http://www.businessweek.com/assets/web_fonts/bwhaasgroteskhead-65medium.woff') format('woff'),
+     url('http://www.businessweek.com/assets/web_fonts/bwhaasgrotesktext-65medium.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 700;
+  font-stretch: normal;
+}
+
+.land {
+  fill: white;
+  stroke-opacity: 1;
+}
+
+.sphere {
+  stroke: black;
+  stroke-width: .5;
+  fill: none;
+}
+
+.graticule {
+  fill: none;
+  stroke: black;
+  stroke-width:.5;
+  opacity:1;
+}
+
+.labels {
+    font: 8px sans-serif;
+    fill: black;
+    opacity: 1;
+}
+
+.city-texts {
+  font: 1em 'BWHaasRegular';
+  opacity: 1;
+}
+.city-arrow img {
+  width: 125px;
+  height: auto;
+}
+
+.forty-five {
+   behavior:url(-ms-transform.htc);
+  /* Firefox */
+  -moz-transform:rotate(45deg);
+  /* Safari and Chrome */
+  -webkit-transform:rotate(45deg);
+  /* Opera */
+  -o-transform:rotate(45deg);
+  /* IE9 */
+  -ms-transform:rotate(45deg);
+  /* IE6,IE7 */
+  filter: progid:DXImageTransform.Microsoft.Matrix(sizingMethod='auto expand', M11=0.7071067811865476, M12=-0.7071067811865475, M21=0.7071067811865475, M22=0.7071067811865476);
+  /* IE8 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(SizingMethod='auto expand', M11=0.7071067811865476, M12=-0.7071067811865475, M21=0.7071067811865475, M22=0.7071067811865476)"; 
+}
+
+svg a {
+  color: black;
+  text-decoration: none;
+}
+
+.city-text:hover{
+  cursor: pointer;
+  /*color: rgba(0, 0, 0, .5);*/
+}
+
+#table-contents-text {
+  font-family: 'BWHaasRegular';
+  font-size: 1.25em;
+}
+
+.noclicks { pointer-events:none; }
+
+.point {  opacity:.6; }
+
+#you {
+  fill: red;
+}
+
+
+.arcs {
+  opacity:.1;
+  stroke: gray;
+  stroke-width: 3;
+}
+.flyers {
+  stroke-width:3;
+  opacity: 1;
+  stroke: darkred; 
+}
+.arc, .flyer {
+  stroke-linejoin: round;
+  fill:none;
+}
+  .arc { }
+  .flyer { }
+  .flyer:hover { }

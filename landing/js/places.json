@@ -2,7 +2,7 @@
 "type": "FeatureCollection",
                                                                                 
 "features": [
-{ "type": "Feature", "properties": {"city": "Beijing", "story": "China's Xiaomi: The World's Fastest-Growing Phone Maker", "img":"beijing.png", "url": "http://www.businessweek.com/articles/2014-06-04/chinas-xiaomi-the-worlds-fastest-growing-phone-maker"}, "geometry": { "type": "Point", "coordinates": [ 116.3917, 39.9139 ] } }
+{ "type": "Feature", "properties": {"city": "Beijing", "story": "Xiaomi's Phones Have Conquered China. Now It's Aiming for the Rest of the World", "img":"beijing.png", "url": "http://www.businessweek.com/articles/2014-06-04/chinas-xiaomi-the-worlds-fastest-growing-phone-maker"}, "geometry": { "type": "Point", "coordinates": [ 116.3917, 39.9139 ] } }
 ,
 { "type": "Feature", "properties": {"city": "Helsinki", "story": "Finland's New Tech Power: Game Maker Supercell", "img":"helsinki.png", "url": "http://www.businessweek.com/articles/2014-06-05/clash-of-clans-maker-supercell-succeeds-nokia-as-finlands-tech-power"}, "geometry": { "type": "Point", "coordinates": [ 24.9375, 60.1708 ] } }
 ,
@@ -12,7 +12,7 @@
 ,
 { "type": "Feature", "properties": {"city": "Lyon", "story": "This High-Tech Tennis Racket Comes With a Built-In Digital Coach", "img":"lyon.png", "url": "http://www.businessweek.com/articles/2014-06-05/babolat-tennis-rackets-sensors-measure-swing-speed-strength"}, "geometry": { "type": "Point", "coordinates": [ 4.8400, 45.7600 ] } }
 ,
-{ "type": "Feature", "properties": {"city": "London", "story": "London's Hungry Worms", "img":"london.png", "url":"http://www.businessweek.com/articles/2014-06-05/londons-massive-subway-tunneling-machines-build-as-they-destroy"}, "geometry": { "type": "Point", "coordinates": [ -0.1275, 51.5072 ] } }
+{ "type": "Feature", "properties": {"city": "London", "story": "London's Massive Subway Tunneling Machines Build as They Destroy", "img":"london.png", "url":"http://www.businessweek.com/articles/2014-06-05/londons-massive-subway-tunneling-machines-build-as-they-destroy"}, "geometry": { "type": "Point", "coordinates": [ -0.1275, 51.5072 ] } }
 ,
 { "type": "Feature", "properties": {"city": "Reykjavik", "story": "Eve Online's Nerd Monument Vandalized Over In-Game Rivalry", "img":"reykjavik.png", "url": "http://www.businessweek.com/articles/2014-06-05/eve-onlines-nerd-monument-vandalized-over-in-game-rivalry"}, "geometry": { "type": "Point", "coordinates": [ -21.9333, 64.1333 ] } }
 ,
