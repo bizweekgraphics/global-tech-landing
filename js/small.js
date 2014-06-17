@@ -63,6 +63,7 @@ var rotateTransition = function() {
       .each('end', function() {
         $('svg img').remove()
         $('.next-story').remove()
+        $('#global-tech').remove()
 
           svg.selectAll('.next-story')
           .data([nextStory])
@@ -80,6 +81,18 @@ var rotateTransition = function() {
           .text(function(d) {
             return d.properties.story
           })
+
+    svg.append('foreignObject')
+      .attr('height', 30)
+      .attr('width', 300)
+      .attr('x', 15)
+      .attr('y', 220)
+      .append('xhtml:p')
+      .on('click', function() {
+        window.top.location.href = 'http://www.businessweek.com/features/the-global-technology-issue-way-beyond-silicon-valley/'
+      })
+      .attr('id', 'global-tech')
+      .text('*Discover More #GlobalTech Content*')
 
         svg.append('foreignObject')
           .data([thisStory])
@@ -311,7 +324,7 @@ function ready(error, world, placesObj) {
     .data([nextStory])
     .enter().append('foreignObject')
     .attr('width', 220)
-    .attr('height', 250)
+    .attr('height', 175)
     .attr('x', 15)
     .attr('y', 50)
     .attr('class', 'next-story')
