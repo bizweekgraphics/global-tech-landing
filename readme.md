@@ -1,6 +1,6 @@
 Used on BusinessWeek global tech landing page (http://www.businessweek.com/features/the-global-technology-issue-way-beyond-silicon-valley/)
 
-D3js globe with faux 3d arcs adapted from bl.ocks.org/dwtkns/4973620. Tracks a user as they read articles.
+D3js globe with faux 3d arcs adapted from http://bl.ocks.org/dwtkns/4973620. Tracks a user as they read articles.
 
 Main.js is the landing page with links to all the articles an the interactive globe
 
